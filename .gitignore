@@ -60,3 +60,16 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+# File managers
+.directory
+.DS_Store
+
+# IDEs and editors
+*.geany
+.*.nja
+.project
+.pydevproject
+.settings
+nbproject/
+.idea
