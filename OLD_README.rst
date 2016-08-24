@@ -512,6 +512,18 @@ Establece los parámetros básicos por defecto para configura el correo. En su c
 
 Recodemos que para poder empler `django_yubin` deberemos configurar el `cron`. Ver http://django-yubin.readthedocs.org/en/latest/settings.html
 
+WhiteNoiseMixin
+---------------
+
+Configuración automática para servir estáticos mediante http://whitenoise.evans.io/. Hay que tener instalada la versión 3.
+
+*Sección*: WhiteNoise
+
+* ENABLE_WHITENOISE         por defecto False. Falso si no está el módulo instalado.
+* WHITENOISE_AUTOREFRESH    por defecto True.
+* WHITENOISE_USE_FINDERS    por defecto True.
+
+
 Ciclo desarrollo con apconf
 ===========================
 

@@ -37,8 +37,8 @@ class DebugMixin(object):
             except ImportError:
                 return False
             else:
-                self.add_to_installed_apps()
-                self.add_to_middleware_classes()
+                self._add_debug_toolbar_to_installed_apps()
+                self._add_debug_toolbar_to_middleware()
 
         return enabled
 
@@ -47,17 +47,17 @@ class DebugMixin(object):
         hosts = get('ALLOWED_HOSTS')
         return [h.strip() for h in hosts.split(',') if h]
 
-    def add_to_installed_apps(self):
+    def _add_debug_toolbar_to_installed_apps(self):
         if 'debug_toolbar' not in self.INSTALLED_APPS:
             self.INSTALLED_APPS.append('debug_toolbar')
 
-    def add_to_middleware_classes(self):
+    def _add_debug_toolbar_to_middleware(self):
         middlewares_settings = (
             'MIDDLEWARE',  # django >= 1.10
             'MIDDLEWARE_CLASSES',  # django < 1.10
         )
         for middleware_setting in middlewares_settings:
-            middlewares = getattr(self, middleware_setting)
-            if middlewares:
+            middlewares = getattr(self, middleware_setting, None)
+            if middlewares is not None:
                 if 'debug_toolbar.middleware.DebugToolbarMiddleware' not in middlewares:
                     middlewares.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
