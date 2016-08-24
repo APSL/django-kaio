@@ -7,9 +7,9 @@ try:
     from configparser import ConfigParser, NoSectionError
 except ImportError:
     pass
-#from collections import namedtuple
 import os
 from os.path import join, pardir, abspath
+import sys
 
 DEFAULT_CONF_NAME = "app.ini"
 DEFAULT_SECTION = "Base"
@@ -62,7 +62,7 @@ class Options(object):
            paths.append(join(current, DEFAULT_CONF_NAME))
            current = abspath(join(current, pardir))
         return list(reversed(paths))
-    
+
     def _read_config(self):
         try:
             self.config_file = self.config.read(self._conf_paths())[0]
@@ -110,10 +110,13 @@ class Options(object):
     def write(self):
         """Guarda todas las opciones definidas"""
         for name, option in self.options.items():
-            try:
-                value = unicode(option.value)
-            except UnicodeDecodeError:
-                value = unicode(option.value, 'utf-8')
+            if sys.version_info[0] < 3:
+                try:
+                    value = unicode(option.value)
+                except UnicodeDecodeError:
+                    value = unicode(option.value, 'utf-8')
+            else:
+                value = str(value)
 
             try:
                 self.config.set(section=option.section, option=name.upper(),
