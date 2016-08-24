@@ -23,9 +23,10 @@ class DebugMixin(object):
 
     @property
     def TEMPLATE_DEBUG(self):
+        debug = get('TEMPLATE_DEBUG', self.DEBUG)
         for template in self.TEMPLATES:
             if template['BACKEND'] == 'django.template.backends.django.DjangoTemplates':
-                template['OPTIONS']['debug'] = get('TEMPLATE_DEBUG', self.DEBUG)
+                template['OPTIONS']['debug'] = debug
 
     @property
     def ENABLE_DEBUG_TOOLBAR(self):
@@ -51,5 +52,12 @@ class DebugMixin(object):
             self.INSTALLED_APPS.append('debug_toolbar')
 
     def add_to_middleware_classes(self):
-        if 'debug_toolbar.middleware.DebugToolbarMiddleware' not in self.MIDDLEWARE:
-            self.MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
+        middlewares_settings = (
+            'MIDDLEWARE',  # django >= 1.10
+            'MIDDLEWARE_CLASSES',  # django < 1.10
+        )
+        for middleware_setting in middlewares_settings:
+            middlewares = getattr(self, middleware_setting)
+            if middlewares:
+                if 'debug_toolbar.middleware.DebugToolbarMiddleware' not in middlewares:
+                    middlewares.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
