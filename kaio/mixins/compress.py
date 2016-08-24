@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from configurations import Settings
+from configurations import Configuration
 from kaio import Options
 from functools import partial
 
@@ -14,7 +14,7 @@ class CompressMixin(object):
     COMPRESS_CSS_FILTER = [
         'compressor.filters.css_default.CssAbsoluteFilter',
     ]
-    STATICFILES_FINDERS = list(Settings.STATICFILES_FINDERS) + [
+    STATICFILES_FINDERS = list(Configuration.STATICFILES_FINDERS) + [
         "compressor.finders.CompressorFinder",
     ]
 

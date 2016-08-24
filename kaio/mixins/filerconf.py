@@ -2,7 +2,7 @@
 
 from os.path import join, abspath
 from kaio import Options
-from configurations import Settings
+from configurations import Configuration
 from functools import partial
 
 opts = Options()
@@ -56,7 +56,7 @@ class FilerMixin(object):
     def default_file_storage(self):
         """Common storage for filer configs"""
         return getattr(
-            Settings, 'DEFAULT_FILE_STORAGE',
+            Configuration, 'DEFAULT_FILE_STORAGE',
             'django.core.files.storage.FileSystemStorage')
 
     @property
