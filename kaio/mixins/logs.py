@@ -63,7 +63,7 @@ class LogsMixin(object):
     # Django logging configuration and handle it ourselves.
     #
     # http://stackoverflow.com/questions/20282521/django-request-logger-not-propagated-to-root/22336174#22336174
-    # https://docs.djangoproject.com/en/1.9/topics/logging/#disabling-logging-configuration
+    # https://docs.djangoproject.com/en/1.10/topics/logging/#disabling-logging-configuration
     LOGGING_CONFIG = None
 
     @property
@@ -161,6 +161,12 @@ class LogsMixin(object):
                 'level': self.LOG_LEVEL,
                 'propagate': False,
             }
+        else:
+            loggers['raven'] = {
+                'handlers': ['default'],
+                'level': 'WARNING',
+            }
+
         return loggers
 
     @property
