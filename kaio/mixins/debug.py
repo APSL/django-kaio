@@ -19,7 +19,9 @@ class DebugMixin(object):
 
     @property
     def TEMPLATE_DEBUG(self):
-        return get('TEMPLATE_DEBUG', self.DEBUG)
+        for template in self.TEMPLATES:
+            if template['BACKEND'] == 'django.template.backends.django.DjangoTemplates':
+                template['OPTIONS']['debug'] = get('TEMPLATE_DEBUG', self.DEBUG)
 
     @property
     def ENABLE_DEBUG_TOOLBAR(self):
