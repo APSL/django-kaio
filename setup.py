@@ -14,7 +14,7 @@ __VERSION__ = metadata['VERSION']
 
 install_requires = [
     'clint',
-    'django-configurations',
+    'django-configurations>=2,<3',
 ]
 if sys.version_info[0] < 3:
     install_requires.append('configparser')
@@ -49,6 +49,7 @@ setup(
         'Framework :: Django',
         'Framework :: Django :: 1.8',
         'Framework :: Django :: 1.9',
+        'Framework :: Django :: 1.10',
     ],
     include_package_data=True,
     zip_safe=False,
