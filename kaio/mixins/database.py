@@ -1,28 +1,37 @@
 # -*- coding: utf-8 -*-
 
-from kaio import Options
 from functools import partial
+from kaio import Options
+
 
 opts = Options()
 get = partial(opts.get, section='Database')
 
+
 class DatabasesMixin(object):
 
-    def DATABASES(self):
-        engine = get('DATABASE_ENGINE', 'sqlite3')
+    def get_engine(self, prefix):
+        engine = get('{}DATABASE_ENGINE'.format(prefix), 'sqlite3')
         if 'django.db.backends' in engine:
-            ENGINE = engine
-        else:
-            ENGINE = 'django.db.backends.' + engine
+            return engine
+        return 'django.db.backends.' + engine
 
+    def get_databases(self, prefix=''):
         return {
             'default': {
-                'ENGINE': ENGINE,
-                'NAME': get('DATABASE_NAME', 'db.sqlite'),
-                'USER': get('DATABASE_USER', None),
-                'PASSWORD': get('DATABASE_PASSWORD', ''),
-                'HOST': get('DATABASE_HOST', ''),
-                'PORT': get('DATABASE_PORT', ''),
+                'ENGINE': self.get_engine(prefix),
+                'NAME': get('{}DATABASE_NAME'.format(prefix), '{}db.sqlite'.format(prefix.lower())),
+                'USER': get('{}DATABASE_USER'.format(prefix), None),
+                'PASSWORD': get('{}DATABASE_PASSWORD'.format(prefix), ''),
+                'HOST': get('{}DATABASE_HOST'.format(prefix), ''),
+                'PORT': get('{}DATABASE_PORT'.format(prefix), ''),
+                'CONN_MAX_AGE': get('{}DATABASE_CONN_MAX_AGE'.format(prefix), 0),
                 'OPTIONS': {},
+                'TEST': {
+                    'NAME': get('{}DATABASE_NAME'.format(prefix), '{}db.sqlite'.format(prefix.lower())),
+                }
             }
         }
+
+    def DATABASES(self):
+        return self.get_databases()
