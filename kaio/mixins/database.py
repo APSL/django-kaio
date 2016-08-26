@@ -28,7 +28,7 @@ class DatabasesMixin(object):
                 'CONN_MAX_AGE': get('{}DATABASE_CONN_MAX_AGE'.format(prefix), 0),
                 'OPTIONS': {},
                 'TEST': {
-                    'NAME': get('{}DATABASE_NAME'.format(prefix), '{}db.sqlite'.format(prefix.lower())),
+                    'NAME': get('{}DATABASE_NAME'.format(prefix), None),
                 }
             }
         }
