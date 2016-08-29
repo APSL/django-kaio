@@ -46,13 +46,12 @@ class LogsMixin(object):
     @property
     def SENTRY_ENABLED(self):
         enabled = get('SENTRY_ENABLED', False)
-        try:
-            import raven
-        except ImportError:
-            return False
-
         if enabled:
-            self.add_sentry_to_installed_apps()
+            try:
+                import raven
+                self.add_sentry_to_installed_apps()
+            except ImportError:
+                return False
         return enabled
 
     @property
@@ -63,7 +62,7 @@ class LogsMixin(object):
     # Django logging configuration and handle it ourselves.
     #
     # http://stackoverflow.com/questions/20282521/django-request-logger-not-propagated-to-root/22336174#22336174
-    # https://docs.djangoproject.com/en/1.9/topics/logging/#disabling-logging-configuration
+    # https://docs.djangoproject.com/en/1.10/topics/logging/#disabling-logging-configuration
     LOGGING_CONFIG = None
 
     @property
@@ -161,6 +160,12 @@ class LogsMixin(object):
                 'level': self.LOG_LEVEL,
                 'propagate': False,
             }
+        else:
+            loggers['raven'] = {
+                'handlers': ['default'],
+                'level': 'WARNING',
+            }
+
         return loggers
 
     @property
@@ -181,4 +186,4 @@ class LogsMixin(object):
 
     def add_sentry_to_installed_apps(self):
         if 'raven.contrib.django.raven_compat' not in self.INSTALLED_APPS:
-            self.INSTALLED_APPS += ('raven.contrib.django.raven_compat', )
+            self.INSTALLED_APPS.append('raven.contrib.django.raven_compat')

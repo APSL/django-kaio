@@ -413,11 +413,14 @@ Configuración de django-compressor. http://django-compressor.readthedocs.org/en
 
 *Parámetros*
 
-* COMPRESS_CSS_FILTER
+* COMPRESS_DEBUG_TOGGLE     por defecto 'nocompress' en modo DEBUG
 * COMPRESS_ENABLED          por defecto False
 * COMPRESS_LESSC_ENABLED    por defecto True
 * COMPRESS_COFFEE_ENABLED   por defecto False
 * COMPRESS_BABEL_ENABLED    por defecto False
+* COMPRESS_LESSC_PATH       por defecto lessc
+* COMPRESS_COFFEE_PATH      por defecto coffee
+* COMPRESS_BABEL_PATH       por defecto babel
 * COMPRESS_PRECOMPILERS     por defecto incluye automáticamente less, babel y coffeescript si están activados,
 * COMPRESS_OUTPUT_DIR
 * COMPRESS_OFFLINE          por defecto False
@@ -511,6 +514,18 @@ Establece los parámetros básicos por defecto para configura el correo. En su c
 * EMAIL_SUBJECT_PREFIX      prefijo a añadir al subject de Django. Por defecto `[Django]`
 
 Recodemos que para poder empler `django_yubin` deberemos configurar el `cron`. Ver http://django-yubin.readthedocs.org/en/latest/settings.html
+
+WhiteNoiseMixin
+---------------
+
+Configuración automática para servir estáticos mediante http://whitenoise.evans.io/. Hay que tener instalada la versión 3.
+
+*Sección*: WhiteNoise
+
+* ENABLE_WHITENOISE         por defecto False. Falso si no está el módulo instalado.
+* WHITENOISE_AUTOREFRESH    por defecto True.
+* WHITENOISE_USE_FINDERS    por defecto True.
+
 
 Ciclo desarrollo con apconf
 ===========================

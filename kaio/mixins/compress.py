@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from configurations import Settings
+from configurations import Configuration
 from kaio import Options
 from functools import partial
 
@@ -10,11 +10,7 @@ get = partial(opts.get, section='Compress')
 
 class CompressMixin(object):
 
-    # COMPRESS_PARSER = 'compressor.parser.LxmlParser'
-    COMPRESS_CSS_FILTER = [
-        'compressor.filters.css_default.CssAbsoluteFilter',
-    ]
-    STATICFILES_FINDERS = list(Settings.STATICFILES_FINDERS) + [
+    STATICFILES_FINDERS = list(Configuration.STATICFILES_FINDERS) + [
         "compressor.finders.CompressorFinder",
     ]
 
@@ -23,29 +19,44 @@ class CompressMixin(object):
         return get('COMPRESS_ENABLED', False)
 
     @property
+    def COMPRESS_DEBUG_TOGGLE(self):
+        if self.DEBUG:
+            return 'nocompress'
+        return None
+
+    @property
     def COMPRESS_LESSC_ENABLED(self):
         return get('COMPRESS_LESSC_ENABLED', True)
+
+    @property
+    def COMPRESS_BABEL_ENABLED(self):
+        return get('COMPRESS_BABEL_ENABLED', True)
 
     @property
     def COMPRESS_COFFEE_ENABLED(self):
         return get('COMPRESS_COFFEE_ENABLED', False)
 
     @property
-    def COMPRESS_BABEL_ENABLED(self):
-        return get('COMPRESS_BABEL_ENABLED', False)
+    def COMPRESS_LESSC_PATH(self):
+        return get('COMPRESS_LESSC_PATH', 'lessc')
+
+    @property
+    def COMPRESS_BABEL_PATH(self):
+        return get('COMPRESS_BABEL_PATH', 'babel')
+
+    @property
+    def COMPRESS_COFEE_PATH(self):
+        return get('COMPRESS_COFEE_PATH', 'coffee')
 
     @property
     def COMPRESS_PRECOMPILERS(self):
         precompilers = []
         if self.COMPRESS_LESSC_ENABLED:
-            precompilers.append(('text/less', 'lessc {infile} {outfile}'))
-        if self.COMPRESS_COFFEE_ENABLED:
-            precompilers.append(('text/coffeescript', 'coffee --compile --stdio'))
+            precompilers.append(('text/less', self.COMPRESS_LESSC_PATH + ' {infile} {outfile}'))
         if self.COMPRESS_BABEL_ENABLED:
-            precompilers.append((
-                'text/babel',
-                'babel {infile} -o {outfile} --modules ignore --source-maps inline'
-            ))
+            precompilers.append(('text/babel', self.COMPRESS_BABEL_PATH + ' {infile} -o {outfile}'))
+        if self.COMPRESS_COFFEE_ENABLED:
+            precompilers.append(('text/coffeescript', self.COMPRESS_COFFEE_PATH + ' --compile --stdio'))
         return precompilers
 
     # offline settings
