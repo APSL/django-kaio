@@ -4,7 +4,10 @@
 import sys
 
 from clint.textui import puts, colored
-from django.core.management.base import NoArgsCommand
+try:
+    from django.core.management.base import NoArgsCommand
+except ImportError:
+    from django.core.management import BaseCommand as NoArgsCommand
 
 from kaio import Options
 
@@ -17,9 +20,7 @@ def module_to_dict(module, omittable=lambda k: k.startswith('_')):
 
 
 class Command(NoArgsCommand):
-    help = """Displays differences between the current settings.py and Django's
-    default settings. Settings that don't appear in the defaults are
-    followed by "###"."""
+    help = """Print a .ini with default values in stdout."""
 
     requires_model_validation = False
 
@@ -55,3 +56,6 @@ class Command(NoArgsCommand):
                 except Exception as e:
                     raise e
             puts('')
+
+    def handle(self, **options):
+        return self.handle_noargs(**options)
