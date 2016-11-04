@@ -4,7 +4,10 @@
 import sys
 
 from clint.textui import puts, colored
-from django.core.management.base import NoArgsCommand
+try:
+    from django.core.management.base import NoArgsCommand
+except ImportError:
+    from django.core.management import BaseCommand as NoArgsCommand
 
 from kaio import Options
 
@@ -55,3 +58,6 @@ class Command(NoArgsCommand):
                 except Exception as e:
                     raise e
             puts('')
+
+    def handle(self, **options):
+        return self.handle_noargs(**options)

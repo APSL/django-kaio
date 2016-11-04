@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 # bcabezas@apsl.net
 
-from django.core.management.base import NoArgsCommand
+try:
+    from django.core.management.base import NoArgsCommand
+except ImportError:
+    from django.core.management import BaseCommand as NoArgsCommand
 
 from kaio import Options
 
@@ -88,3 +91,5 @@ class Command(NoArgsCommand):
                     colored.green(user_settings[key])))
                     #colored.white(default_settings[key])))
 
+    def handle(self, **options):
+        return self.handle_noargs(**options)
