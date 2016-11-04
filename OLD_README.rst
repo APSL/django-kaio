@@ -8,8 +8,10 @@ crear un fichero `app.ini`
 Configura la app django con las siguientes características:
 
 * Parámetros sobre fichero estándar ini
+
  * En ausencia de .ini, valores por defecto
  * Busca .ini en el directorio actual y ascendentes.
+
 * Script de management para ver configuración app
 * Script de managemet para generar ini con valores por defecto
 * Podemos usarlo junto con django-configurations en nuestros settings,
@@ -203,6 +205,7 @@ Ejemplo de aplicación desde cero. El Kiosko.
 1. Ejecutamos
 
 ::
+
     django-admin.py startporject kiosko
 
 dado que no queremos que el proyecto y la aplicación se llamen igual lo que
@@ -398,6 +401,21 @@ Configuración de acceso a la base de datos.
 * DATABASE_PASSWORD         clave de acceso
 * DATABASE_HOST             nombre del host
 * DATABASE_PORT             nombre del puerto
+* DATABASE_OPTIONS_XXX      Ejemplo: para crear el diccionario
+
+::
+
+    DATABASES['default']['OPTIONS'] = {
+        'init_command': 'SET default_storage_engine=INNODB',
+        'sql_mode': 'traditional'
+    }
+
+Hay que definir en el app.ini:
+
+::
+
+    DATABASE_OPTIONS_INIT_COMMAND = SET default_storage_engine=INNODB
+    DATABASE_OPTIONS_SQL_MODE = traditional
 
 
 CompressMixin
@@ -468,6 +486,7 @@ Mixin para la configuración de los logs de Django. Establece una serie de conve
                             por coma y en el formato <modulo>:VALOR_LOG
 
                             Por ejemplo:
+
 ::
 
             [Logs]
