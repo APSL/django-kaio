@@ -19,6 +19,10 @@ class CompressMixin(object):
         return get('COMPRESS_ENABLED', False)
 
     @property
+    def COMPRESS_CSS_HASHING_METHOD(self):
+        return get('COMPRESS_CSS_HASHING_METHOD', 'content')
+
+    @property
     def COMPRESS_DEBUG_TOGGLE(self):
         if self.DEBUG:
             return 'nocompress'

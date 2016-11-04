@@ -413,19 +413,20 @@ Configuración de django-compressor. http://django-compressor.readthedocs.org/en
 
 *Parámetros*
 
-* COMPRESS_DEBUG_TOGGLE     por defecto 'nocompress' en modo DEBUG
-* COMPRESS_ENABLED          por defecto False
-* COMPRESS_LESSC_ENABLED    por defecto True
-* COMPRESS_COFFEE_ENABLED   por defecto False
-* COMPRESS_BABEL_ENABLED    por defecto False
-* COMPRESS_LESSC_PATH       por defecto lessc
-* COMPRESS_COFFEE_PATH      por defecto coffee
-* COMPRESS_BABEL_PATH       por defecto babel
-* COMPRESS_PRECOMPILERS     por defecto incluye automáticamente less, babel y coffeescript si están activados,
+* COMPRESS_DEBUG_TOGGLE         por defecto 'nocompress' en modo DEBUG
+* COMPRESS_ENABLED              por defecto False
+* COMPRESS_CSS_HASHING_METHOD   por defecto 'content'
+* COMPRESS_LESSC_ENABLED        por defecto True
+* COMPRESS_COFFEE_ENABLED       por defecto False
+* COMPRESS_BABEL_ENABLED        por defecto False
+* COMPRESS_LESSC_PATH           por defecto lessc
+* COMPRESS_COFFEE_PATH          por defecto coffee
+* COMPRESS_BABEL_PATH           por defecto babel
+* COMPRESS_PRECOMPILERS         por defecto incluye automáticamente less, babel y coffeescript si están activados,
 * COMPRESS_OUTPUT_DIR
-* COMPRESS_OFFLINE          por defecto False
-* COMPRESS_OFFLINE_TIMEOUT  por defecto 31536000 (1 año en segundos)
-* COMPRESS_OFFLINE_MANIFEST por defecto 'manifest.json'
+* COMPRESS_OFFLINE              por defecto False
+* COMPRESS_OFFLINE_TIMEOUT      por defecto 31536000 (1 año en segundos)
+* COMPRESS_OFFLINE_MANIFEST     por defecto 'manifest.json'
 
 *Compresión de estáticos offline*
 
