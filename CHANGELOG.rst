@@ -2,6 +2,19 @@
 Change log
 ==========
 
+v0.4.2 (2016-11-10)
+-------------------
+
+* Fix missing return in database mixin.
+
+v0.4.1 (2016-11-04)
+-------------------
+
+* COMPRESS_CSS_HASHING_METHOD = 'content' by default.
+* Accept DATABASE_OPTIONS.
+* Fix #2 ImportError: cannot import name 'NoArgsCommand' with Django 1.10.
+
+
 v0.4.0 (2016-08-29)
 -------------------
 
@@ -15,4 +28,3 @@ v0.3.0 (2016-05-31)
 -------------------
 
 * First public version.
-
