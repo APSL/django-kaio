@@ -21,6 +21,7 @@ class DatabasesMixin(object):
         for key in opts.keys():
             if 'DATABASE_OPTIONS_' in key.upper():
                 options[str(key.split('DATABASE_OPTIONS_')[1].lower())] = get(key)
+        return options
 
     def get_databases(self, prefix=''):
         return {
