@@ -17,10 +17,14 @@ class DatabasesMixin(object):
         return 'django.db.backends.' + engine
 
     def get_options(self):
+        """
+        Retrive the many options for a database connection.
+        """
         options = {}
+        splitter  ='DATABASE_OPTIONS_'
         for key in opts.keys():
-            if 'DATABASE_OPTIONS_' in key.upper():
-                options[str(key.split('DATABASE_OPTIONS_')[1].lower())] = get(key)
+            if splitter in key.upper():
+                options[str(key.upper().split(splitter)[1].lower())] = get(key)
         return options
 
     def get_databases(self, prefix=''):
