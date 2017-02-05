@@ -11,8 +11,12 @@ get = partial(opts.get, section='Database')
 class DatabasesMixin(object):
 
     def get_engine(self, prefix):
+        """
+        Retrieve the database engine.
+        Only change the full engine string if there is no «backends» in it.
+        """
         engine = get('{}DATABASE_ENGINE'.format(prefix), 'sqlite3')
-        if 'django.db.backends' in engine:
+        if 'backends' in engine:
             return engine
         return 'django.db.backends.' + engine
 
