@@ -11,12 +11,14 @@ import os
 from os.path import join, pardir, abspath
 import sys
 
+
 DEFAULT_CONF_NAME = "app.ini"
 DEFAULT_SECTION = "Base"
 
 
 def singleton(cls):
     instances = {}
+
     def getinstance():
         if cls not in instances:
             instances[cls] = cls()
@@ -33,8 +35,8 @@ class Option(object):
         self.default_value = default_value
 
     def __repr__(self):
-        return u'Option(value=%r, section=%r, default=%r)' % (self.value,
-                self.section, self.default_value)
+        msg = u'Option(value=%r, section=%r, default=%r)'
+        return msg % (self.value, self.section, self.default_value)
 
     def get_value_or_default(self):
         if self.value is not None:
@@ -59,8 +61,8 @@ class Options(object):
         paths = []
         current = abspath(".")
         while current != "/":
-           paths.append(join(current, DEFAULT_CONF_NAME))
-           current = abspath(join(current, pardir))
+            paths.append(join(current, DEFAULT_CONF_NAME))
+            current = abspath(join(current, pardir))
         return list(reversed(paths))
 
     def _read_config(self):
@@ -119,12 +121,10 @@ class Options(object):
                 value = str(value)
 
             try:
-                self.config.set(section=option.section, option=name.upper(),
-                        value=value)
+                self.config.set(section=option.section, option=name.upper(), value=value)
             except NoSectionError:
                 self.config.add_section(option.section)
-                self.config.set(section=option.section, option=name,
-                        value=value)
+                self.config.set(section=option.section, option=name, value=value)
         self._write_file()
 
     def _write_file(self):
@@ -133,8 +133,11 @@ class Options(object):
             self.config.write(config_file)
 
     def set(self, name, value, section=DEFAULT_SECTION):
+        name = name.strip()
         if type(value) == str:
-            value = value.decode('utf-8')
+            if sys.version_info[0] < 3:
+                value = value.decode('utf-8')
+            value = value.strip()
         if name in self.options:
             self.options[name].value = value
         else:
@@ -143,17 +146,17 @@ class Options(object):
     def get(self, name, default=None, section=DEFAULT_SECTION):
         """Returns value, and also saves the requested default
         If value exists in environ, return environ value"""
+        name = name.strip()
 
         try:
             self.options[name].default_value = default
             if not self.options[name].section:
                 self.options[name].section = section
         except KeyError:
-            self.options[name] = Option(value=None, section=section,
-                   default_value=default)
+            self.options[name] = Option(value=None, section=section, default_value=default)
 
         try:
-            value = self._cast_value(os.environ[name])
+            value = self._cast_value(os.environ[name].strip())
             return value
         except KeyError:
             if self.options[name].value is not None:
