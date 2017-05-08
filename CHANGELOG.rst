@@ -2,6 +2,12 @@
 Change log
 ==========
 
+v0.5.0 (2017-05-08)
+-------------------
+
+* Strip names and values from options.
+* Add support for redis password.
+
 v0.4.2 (2016-11-10)
 -------------------
 
