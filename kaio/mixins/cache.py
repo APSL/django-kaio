@@ -21,6 +21,7 @@ class CachesMixin(object):
     def CACHES(self):
         CACHE_TYPE = get('CACHE_TYPE', 'locmem')
         CACHE_REDIS_DB = get('CACHE_REDIS_DB', 2)
+        CACHE_REDIS_PASSWORD = get('CACHE_REDIS_PASSWORD', None)
         CACHE_PREFIX = get('CACHE_PREFIX', self.APP_SLUG)
         CACHE_TIMEOUT = get('CACHE_TIMEOUT', 3600)
         CACHE_MAX_ENTRIES = get('CACHE_MAX_ENTRIES', 10000)
@@ -36,6 +37,8 @@ class CachesMixin(object):
                     'MAX_ENTRIES': CACHE_MAX_ENTRIES,
                 },
             }
+            if CACHE_REDIS_PASSWORD is not None:
+                CACHE['OPTIONS']['PASSWORD'] = CACHE_REDIS_PASSWORD
         elif CACHE_TYPE == 'locmem':
             CACHE = {
                 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
