@@ -20,17 +20,6 @@ class DatabasesMixin(object):
             return engine
         return 'django.db.backends.' + engine
 
-    def get_options(self):
-        """
-        Retrive the many options for a database connection.
-        """
-        options = {}
-        splitter  ='DATABASE_OPTIONS_'
-        for key in opts.keys():
-            if splitter in key.upper():
-                options[str(key.upper().split(splitter)[1].lower())] = get(key)
-        return options
-
     def get_databases(self, prefix=''):
         return {
             'default': {
@@ -41,7 +30,6 @@ class DatabasesMixin(object):
                 'HOST': get('{}DATABASE_HOST'.format(prefix), ''),
                 'PORT': get('{}DATABASE_PORT'.format(prefix), ''),
                 'CONN_MAX_AGE': get('{}DATABASE_CONN_MAX_AGE'.format(prefix), 0),
-                'OPTIONS': self.get_options(),
                 'TEST': {
                     'NAME': get('{}DATABASE_NAME'.format(prefix), None),
                 }
