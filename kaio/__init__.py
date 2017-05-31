@@ -4,4 +4,4 @@
 
 from .options import Options
 
-__VERSION__ = '0.5.0'
+__VERSION__ = '0.6.0'

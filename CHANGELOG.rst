@@ -2,6 +2,11 @@
 Change log
 ==========
 
+v0.6.0 (2017-05-31)
+-------------------
+
+* Breaking change: Remove DATABASE_OPTIONS, it doesn't work with environment variables.
+
 v0.5.0 (2017-05-08)
 -------------------
 
