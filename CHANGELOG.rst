@@ -2,6 +2,11 @@
 Change log
 ==========
 
+v0.7.0 (2017-06-12)
+-------------------
+
+* Add support for SECURE_PROXY_SSL_HEADER in SecurityMixin.
+
 v0.6.0 (2017-05-31)
 -------------------
 
