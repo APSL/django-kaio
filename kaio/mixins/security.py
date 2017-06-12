@@ -24,7 +24,7 @@ class SecurityMixin(object):
 
     @property
     def SECURE_PROXY_SSL_HEADER_NAME(self):
-        return get('SECURE_PROXY_SSL_HEADER_NAME', 'HTTP_X_FORWARDED_PROTOCOL')
+        return get('SECURE_PROXY_SSL_HEADER_NAME', 'HTTP_X_FORWARDED_PROTO')
 
     @property
     def SECURE_PROXY_SSL_HEADER_VALUE(self):
@@ -34,5 +34,5 @@ class SecurityMixin(object):
     def SECURE_PROXY_SSL_HEADER(self):
         # required in order to have the request.is_secure() method to work properly in https environments
         # https://docs.djangoproject.com/en/1.10/ref/settings/#secure-proxy-ssl-header
-        # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+        # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
         return self.SECURE_PROXY_SSL_HEADER_NAME, self.SECURE_PROXY_SSL_HEADER_VALUE
