@@ -10,7 +10,8 @@ get = partial(opts.get, section='Database')
 
 class DatabasesMixin(object):
 
-    def get_engine(self, prefix):
+    @staticmethod
+    def get_engine(prefix):
         """
         Retrieve the database engine.
         Only change the full engine string if there is no «backends» in it.

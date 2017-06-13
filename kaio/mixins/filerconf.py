@@ -8,6 +8,7 @@ from functools import partial
 opts = Options()
 get = partial(opts.get, section='Filer')
 
+
 class FilerMixin(object):
     """Settings para django-filer y easy_thumbnails"""
 

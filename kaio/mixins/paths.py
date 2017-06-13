@@ -7,6 +7,7 @@ from functools import partial
 opts = Options()
 get = partial(opts.get, section='Paths')
 
+
 class PathsMixin(object):
 
     @property

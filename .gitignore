@@ -74,3 +74,9 @@ target/
 nbproject/
 .idea
 .vscode
+
+
+# Created by .ignore support plugin (hsz.mobi)
+docs/_build
+docs/_static
+docs/_templates
