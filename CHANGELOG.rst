@@ -2,6 +2,22 @@
 Change log
 ==========
 
+v0.7.0 (2017-06-12)
+-------------------
+
+* Add support for SECURE_PROXY_SSL_HEADER in SecurityMixin.
+
+v0.6.0 (2017-05-31)
+-------------------
+
+* Breaking change: Remove DATABASE_OPTIONS, it doesn't work with environment variables.
+
+v0.5.0 (2017-05-08)
+-------------------
+
+* Strip names and values from options.
+* Add support for redis password.
+
 v0.4.2 (2016-11-10)
 -------------------
 

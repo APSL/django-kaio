@@ -401,22 +401,6 @@ Configuración de acceso a la base de datos.
 * DATABASE_PASSWORD         clave de acceso
 * DATABASE_HOST             nombre del host
 * DATABASE_PORT             nombre del puerto
-* DATABASE_OPTIONS_XXX      Ejemplo: para crear el diccionario
-
-::
-
-    DATABASES['default']['OPTIONS'] = {
-        'init_command': 'SET default_storage_engine=INNODB',
-        'sql_mode': 'traditional'
-    }
-
-Hay que definir en el app.ini:
-
-::
-
-    DATABASE_OPTIONS_INIT_COMMAND = SET default_storage_engine=INNODB
-    DATABASE_OPTIONS_SQL_MODE = traditional
-
 
 CompressMixin
 -------------
@@ -503,6 +487,7 @@ Este mixin nos permite configurar la caché de nuestra aplicación. Está pensad
 
 * CACHE_TYPE                tipo de caché, por defecto `locmem`, opciones: `locmem`, `redis`, `dummy`
 * CACHE_REDIS_DB            base de datos qu utilizaremos para la caché en redis. Por defecto la 2
+* CACHE_REDIS_PASSWORD      password para redis. Por defecto sin password.
 * REDIS_HOST                host de redis. Por defecto `localhost`
 * REDIS_PORT                puerto del servidor redis. Por defecto `6379`
 * CACHE_PREFIX              prefijo a utilizar en las claves de caché. Por defecto el SLUG de la aplicación.
