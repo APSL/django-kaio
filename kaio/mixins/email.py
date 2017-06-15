@@ -7,6 +7,7 @@ from functools import partial
 opts = Options()
 get = partial(opts.get, section='Email')
 
+
 class EmailMixin(object):
     """Settings para enviar emails"""
 
@@ -43,7 +44,6 @@ class EmailMixin(object):
     @property
     def EMAIL_USE_TLS(self):
         return get('EMAIL_USE_TLS', False)
-
 
     # django-yubin settings: http://django-yubin.readthedocs.org/en/latest/settings.html
 

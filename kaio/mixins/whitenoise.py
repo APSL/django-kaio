@@ -26,11 +26,11 @@ class WhiteNoiseMixin(object):
 
     @property
     def WHITENOISE_AUTOREFRESH(self):
-        get('WHITENOISE_AUTOREFRESH', True)
+        return get('WHITENOISE_AUTOREFRESH', True)
 
     @property
     def WHITENOISE_USE_FINDERS(self):
-        get('WHITENOISE_USE_FINDERS', True)
+        return get('WHITENOISE_USE_FINDERS', True)
 
     def _add_whitenoise_to_installed_apps(self):
         if 'whitenoise.runserver_nostatic' not in self.INSTALLED_APPS:

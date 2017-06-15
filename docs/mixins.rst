@@ -165,6 +165,7 @@ django-compressor_ configuration.
     by default includes automatically less, babel and coffeescript if they are active.
 
 **COMPRESS_OUTPUT_DIR**
+    by default ``CACHE/``.
 
 **COMPRESS_OFFLINE**
     by default ``False``.
@@ -186,7 +187,8 @@ In order to be able to use it you have to follow two steps:
 This last step is advisable to follow it as a good practice just in case
 in any future moment we want the **COMPRESS_OFFLINE** feature.
 
-Example of the [Compress] section with compress activated, with coffescript support and compress offline activated. **LESS** suport is active by default:
+Example of the [Compress] section with compress activated, with coffescript support and
+compress offline activated. **LESS** suport is active by default:
 
 .. code-block:: python
 
@@ -197,7 +199,8 @@ Example of the [Compress] section with compress activated, with coffescript supp
     COMPRESS_OFFLINE = True
     ...
 
-The idea is to have COMPRESS_OFFLINE = False in development environment and to have COMPRESS_OFFLINE = True once we deploy the project to production environment.
+The idea is to have COMPRESS_OFFLINE = False in development environment and to
+have COMPRESS_OFFLINE = True once we deploy the project to production environment.
 
 
 In order to test it in development environment you have to execute
@@ -244,6 +247,9 @@ Database access configuration.
 **DATABASE_PORT**
     port number
 
+**DATABASE_CONN_MAX_AGE**
+    by default ``0``.
+
 
 DebugMixin
 ----------
@@ -285,8 +291,50 @@ operate with ``django-yubin``, leaving its final configuration for the productio
 
 **Parameters**
 
+**EMAIL_BACKEND**
+    by default ``django.core.mail.backends.smtp.EmailBackend``.
+
+**EMAIL_FILE_PATH**
+    by default ``None``.
+
+**EMAIL_HOST**
+    by default ``localhost``.
+
+**EMAIL_HOST_PASSWORD**
+    by default ``''``.
+
+**EMAIL_HOST_USER**
+    by default ``''``.
+
+**EMAIL_PORT**
+    by default ``25``.
+
 **EMAIL_SUBJECT_PREFIX**
     Prefix to add to Django's subject. By default `[Django]`
+
+**EMAIL_USE_TLS**
+    by default ``False``.
+
+**MAILER_PAUSE_SEND**
+    by default ``False``.
+
+**MAILER_USE_BACKEND**
+    by default ``django.core.mail.backends.smtp.EmailBackend``.
+
+**MAILER_MAIL_ADMINS_PRIORITY**
+    by default ``None``.
+
+**MAILER_MAIL_MANAGERS_PRIORITY**
+    by default ``None``.
+
+**MAILER_EMPTY_QUEUE_SLEEP**
+    by default ``30``.
+
+**MAILER_LOCK_WAIT_TIMEOUT**
+    by default ``-1``.
+
+**MAILER_LOCK_PATH**
+    by default ``os.path.join(self.APP_ROOT, "send_mail")``.
 
 Recall that in order to use django_yubin_ we must configure the **cron**.
 
@@ -377,6 +425,12 @@ in our development and production environments for the project configuration.
 
     [Logs]
     EXTRA_LOGGING = oscar.paypal:DEBUG, django.db:INFO
+
+**SENTRY_ENABLED**
+    by default ``False``.
+
+**SENTRY_DSN**
+    by default ``''``.
 
 
 PathsMixin
