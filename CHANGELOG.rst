@@ -2,6 +2,11 @@
 Change log
 ==========
 
+v0.7.2 (2017-06-15)
+-------------------
+
+* Updated documentation and small bug fix in WhiteNoiseMixin.
+
 v0.7.1 (2017-06-15)
 -------------------
 
