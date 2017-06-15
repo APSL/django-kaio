@@ -6,6 +6,7 @@ from functools import partial
 opts = Options()
 get = partial(opts.get, section='Logs')
 
+
 class LogsMixin(object):
     """Django Logging configuration"""
 
