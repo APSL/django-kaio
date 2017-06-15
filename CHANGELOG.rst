@@ -2,7 +2,7 @@
 Change log
 ==========
 
-v0.7.1 (2017-06-12)
+v0.7.1 (2017-06-15)
 -------------------
 
 * Added documentation first version.
