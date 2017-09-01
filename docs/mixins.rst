@@ -432,6 +432,9 @@ in our development and production environments for the project configuration.
 **SENTRY_DSN**
     by default ``''``.
 
+**SENTRY_TRANSPORT**
+    by default ``'raven.transport.threaded.ThreadedHTTPTransport'``.
+
 
 PathsMixin
 ----------
