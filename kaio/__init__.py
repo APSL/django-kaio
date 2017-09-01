@@ -4,4 +4,4 @@
 
 from .options import Options
 
-__VERSION__ = '0.7.2'
+__VERSION__ = '0.8.0'
