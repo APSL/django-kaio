@@ -2,6 +2,11 @@
 Change log
 ==========
 
+v0.9.0 (2017-11-08)
+-------------------
+
+* Better defaults for DEFAULT_FROM_EMAIL and  EMAIL_BACKEND.
+
 v0.8.0 (2017-09-01)
 -------------------
 
