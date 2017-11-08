@@ -146,8 +146,8 @@ django-compressor_ configuration.
 **COMPRESS_LESSC_ENABLED**
     by default ``True``.
 
-**COMPRESS_COFFEE_ENABLED**
-    by default ``False``.
+**COMPRESS_SASS_ENABLED**
+    by default ``True``.
 
 **COMPRESS_BABEL_ENABLED**
     by default ``False``.
@@ -155,8 +155,8 @@ django-compressor_ configuration.
 **COMPRESS_LESSC_PATH**
     by default ``lessc``.
 
-**COMPRESS_COFFEE_PATH**
-    by default ``coffee``.
+**COMPRESS_SASS_PATH**
+    by default ``node-sass``.
 
 **COMPRESS_BABEL_PATH**
     by default ``babel``.

@@ -37,8 +37,8 @@ class CompressMixin(object):
         return get('COMPRESS_BABEL_ENABLED', True)
 
     @property
-    def COMPRESS_COFFEE_ENABLED(self):
-        return get('COMPRESS_COFFEE_ENABLED', False)
+    def COMPRESS_SASS_ENABLED(self):
+        return get('COMPRESS_SASS_ENABLED', True)
 
     @property
     def COMPRESS_LESSC_PATH(self):
@@ -49,8 +49,8 @@ class CompressMixin(object):
         return get('COMPRESS_BABEL_PATH', 'babel')
 
     @property
-    def COMPRESS_COFEE_PATH(self):
-        return get('COMPRESS_COFEE_PATH', 'coffee')
+    def COMPRESS_SASS_PATH(self):
+        return get('COMPRESS_SASS_PATH', 'node-sass')
 
     @property
     def COMPRESS_PRECOMPILERS(self):
@@ -59,8 +59,9 @@ class CompressMixin(object):
             precompilers.append(('text/less', self.COMPRESS_LESSC_PATH + ' {infile} {outfile}'))
         if self.COMPRESS_BABEL_ENABLED:
             precompilers.append(('text/babel', self.COMPRESS_BABEL_PATH + ' {infile} -o {outfile}'))
-        if self.COMPRESS_COFFEE_ENABLED:
-            precompilers.append(('text/coffeescript', self.COMPRESS_COFFEE_PATH + ' --compile --stdio'))
+        if self.COMPRESS_SASS_ENABLED:
+            precompilers.append(('text/sass', self.COMPRESS_SASS_PATH + ' {infile} {outfile}'))
+            precompilers.append(('text/scss', self.COMPRESS_SASS_PATH + ' {infile} {outfile}'))
         return precompilers
 
     # offline settings
