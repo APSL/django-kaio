@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import logging
 import os
 from kaio import Options
 from functools import partial
 
+
+logger = logging.getLogger(__name__)
 opts = Options()
 get = partial(opts.get, section='Email')
 
@@ -11,11 +14,26 @@ get = partial(opts.get, section='Email')
 class EmailMixin(object):
     """Settings para enviar emails"""
 
-    # Django settings: https://docs.djangoproject.com/en/1.6/ref/settings/#email-backend
+    # Django settings: https://docs.djangoproject.com/en/1.11/ref/settings/#email-backend
+
+    @property
+    def DEFAULT_FROM_EMAIL(self):
+        return get('DEFAULT_FROM_EMAIL', 'Example <info@example.com>')
 
     @property
     def EMAIL_BACKEND(self):
-        return get('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+        backend = get('EMAIL_BACKEND')
+        if backend:
+            return backend
+
+        backend = 'django.core.mail.backends.smtp.EmailBackend'
+        if 'django_yubin' in self.INSTALLED_APPS:
+            try:
+                import django_yubin
+                backend = 'django_yubin.smtp_queue.EmailBackend'
+            except ImportError:
+                logger.warn('WARNING: django_yubin in INSTALLED_APPS but not pip installed.')
+        return backend
 
     @property
     def EMAIL_FILE_PATH(self):
