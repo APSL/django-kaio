@@ -92,7 +92,7 @@ class EmailMixin(object):
 
     @property
     def MAILER_LOCK_WAIT_TIMEOUT(self):
-        return get('MAILER_LOCK_WAIT_TIMEOUT', -1)
+        return get('MAILER_LOCK_WAIT_TIMEOUT', 0)
 
     @property
     def MAILER_LOCK_PATH(self):

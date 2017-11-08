@@ -334,7 +334,7 @@ operate with ``django-yubin``, leaving its final configuration for the productio
     by default ``30``.
 
 **MAILER_LOCK_WAIT_TIMEOUT**
-    by default ``-1``.
+    by default ``0``.
 
 **MAILER_LOCK_PATH**
     by default ``os.path.join(self.APP_ROOT, "send_mail")``.
