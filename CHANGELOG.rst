@@ -2,6 +2,11 @@
 Change log
 ==========
 
+v0.10.0 (2017-11-08)
+-------------------
+
+* Add support for sass (and scss) and remove support for coffescript.
+
 v0.9.1 (2017-11-08)
 -------------------
 
