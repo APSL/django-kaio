@@ -60,8 +60,10 @@ class Options(object):
     def _conf_paths(self):
         paths = []
         current = abspath(".")
-        while current != "/":
+        last = None
+        while current != last:
             paths.append(join(current, DEFAULT_CONF_NAME))
+            last = current
             current = abspath(join(current, pardir))
         return list(reversed(paths))
 
