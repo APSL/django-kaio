@@ -2,6 +2,12 @@
 Change log
 ==========
 
+v0.11.0 (2018-02-02)
+-------------------
+
+* Support to set DATABASES OPTIONS options.
+* Support to customize logger formatter class and format.
+
 v0.10.0 (2017-11-08)
 -------------------
 
