@@ -250,6 +250,9 @@ Database access configuration.
 **DATABASE_CONN_MAX_AGE**
     by default ``0``.
 
+**DATABASE_OPTIONS_OPTIONS**
+    string to add to database options setting. Empty by default. Example to change the postgresql schema: ``DATABASE_OPTIONS_OPTIONS = -c search_path=some_schema``
+
 
 DebugMixin
 ----------

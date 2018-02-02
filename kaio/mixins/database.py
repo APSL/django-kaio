@@ -22,7 +22,7 @@ class DatabasesMixin(object):
         return 'django.db.backends.' + engine
 
     def get_databases(self, prefix=''):
-        return {
+        databases = {
             'default': {
                 'ENGINE': self.get_engine(prefix),
                 'NAME': get('{}DATABASE_NAME'.format(prefix), '{}db.sqlite'.format(prefix.lower())),
@@ -36,6 +36,12 @@ class DatabasesMixin(object):
                 }
             }
         }
+
+        options = get('DATABASE_OPTIONS_OPTIONS')
+        if options:
+            databases['default']['OPTIONS'] = {'options': options}
+
+        return databases
 
     def DATABASES(self):
         return self.get_databases()
