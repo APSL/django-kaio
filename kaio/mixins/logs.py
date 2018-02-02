@@ -49,7 +49,7 @@ class LogsMixin(object):
         enabled = get('SENTRY_ENABLED', False)
         if enabled:
             try:
-                import raven
+                import raven  # noqa
                 self.add_sentry_to_installed_apps()
             except ImportError:
                 return False
@@ -91,7 +91,7 @@ class LogsMixin(object):
         handlers['default'] = {
             'level': self.LOG_LEVEL,
             'class': 'logging.StreamHandler',
-            'formatter': 'apsldefault'
+            'formatter': 'default'
         }
 
         if self.LOG_FILE:
@@ -176,11 +176,17 @@ class LogsMixin(object):
 
     @property
     def formatters(self):
-        return {
-            'apsldefault': {
-                'format': "[%(asctime)s] %(levelname)s %(name)s-%(lineno)s %(message)s"
+        formatters_config = {
+            'default': {
+                'format': get('LOG_FORMATTER_FORMAT', '[%(asctime)s] %(levelname)s %(name)s-%(lineno)s %(message)s')
             }
         }
+
+        formatter_class = get('LOG_FORMATTER_CLASS')
+        if formatter_class:
+            formatters_config['default']['()'] = formatter_class
+
+        return formatters_config
 
     @property
     def filters(self):

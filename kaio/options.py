@@ -1,7 +1,4 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-# bcabezas@apsl.net
 
 try:
     from configparser import ConfigParser, NoSectionError
@@ -48,6 +45,9 @@ class Option(object):
 class Options(object):
     """Option Parser. By now based on ini files"""
 
+    # Options that will not be interpolated.
+    RAW_OPTIONS = {'LOG_FORMATTER_FORMAT'}
+
     def __init__(self):
         """Parse initial options"""
         self.config = ConfigParser()
@@ -56,6 +56,10 @@ class Options(object):
         self.defaults = {}
         self.options = {}
         self._parse_options()
+
+    @classmethod
+    def _is_raw_option(cls, option):
+        return option.upper() in cls.RAW_OPTIONS
 
     def _conf_paths(self):
         paths = []
@@ -72,7 +76,7 @@ class Options(object):
             self.config_file = abspath(join('.', DEFAULT_CONF_NAME))
 
     def _cast_value(self, value):
-        """Soportados: int, bool, str"""
+        """Support: int, bool, str"""
         try:
             value = int(value)
         except ValueError:
@@ -83,11 +87,13 @@ class Options(object):
         return value
 
     def _parse_options(self):
-        """ Parsea fichero .ini y pone las opciones en self.options """
+        """Parse .ini file and set options in self.options"""
         for section in self.config.sections():
-            for key, value in self.config.items(section=section):
+            for option in self.config.options(section):
+                raw = self._is_raw_option(option)
+                value = self.config.get(section=section, option=option, raw=raw)
                 value = self._cast_value(value)
-                self.options[key.upper()] = Option(value, section)
+                self.options[option.upper()] = Option(value, section)
 
     def __iter__(self):
         """Return an iterator of options"""
@@ -110,7 +116,7 @@ class Options(object):
         return [k for k, v in self.items(section)]
 
     def write(self):
-        """Guarda todas las opciones definidas"""
+        """Save all defined options"""
         for name, option in self.options.items():
             if sys.version_info[0] < 3:
                 try:

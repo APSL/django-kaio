@@ -432,6 +432,13 @@ in our development and production environments for the project configuration.
     [Logs]
     EXTRA_LOGGING = oscar.paypal:DEBUG, django.db:INFO
 
+**LOG_FORMATTER_FORMAT**
+    by default `[%(asctime)s] %(levelname)s %(name)s-%(lineno)s %(message)s`.
+    This option is not interpolated, see https://docs.python.org/3/library/configparser.html#interpolation-of-values
+
+**LOG_FORMATTER_CLASS**
+    custom formatter class. By default no formatter class is used.
+
 **SENTRY_ENABLED**
     by default ``False``.
 
