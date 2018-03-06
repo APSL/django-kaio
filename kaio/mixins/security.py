@@ -20,7 +20,7 @@ class SecurityMixin(object):
 
     @property
     def ALLOWED_HOSTS(self):
-        return [h.strip() for h in get('ALLOWED_HOSTS', '*').split(',')]
+        return [h.strip() for h in get('ALLOWED_HOSTS', '*').split(',') if h]
 
     @property
     def SECURE_PROXY_SSL_HEADER_NAME(self):

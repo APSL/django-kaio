@@ -10,12 +10,7 @@ get = partial(opts.get, section='Debug')
 
 
 class DebugMixin(object):
-    """Securty base settings"""
-
-    # https://django-debug-toolbar.readthedocs.io/en/stable/installation.html#explicit-setup
-    DEBUG_TOOLBAR_PATCH_SETTINGS = False
-    DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
-    INTERNAL_IPS = ['127.0.0.1']
+    """Debug base settings"""
 
     @property
     def DEBUG(self):
@@ -27,6 +22,10 @@ class DebugMixin(object):
         for template in self.TEMPLATES:
             if template['BACKEND'] == 'django.template.backends.django.DjangoTemplates':
                 template['OPTIONS']['debug'] = debug
+
+    # https://django-debug-toolbar.readthedocs.io/en/stable/installation.html#explicit-setup
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
+    DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
     @property
     def ENABLE_DEBUG_TOOLBAR(self):
@@ -43,9 +42,9 @@ class DebugMixin(object):
         return enabled
 
     @property
-    def ALLOWED_HOSTS(self):
-        hosts = get('ALLOWED_HOSTS')
-        return [h.strip() for h in hosts.split(',') if h]
+    def INTERNAL_IPS(self):
+        ips = [ip.strip() for ip in get('INTERNAL_IPS', '127.0.0.1').split(',') if ip]
+        return ips
 
     def _add_debug_toolbar_to_installed_apps(self):
         if 'debug_toolbar' not in self.INSTALLED_APPS:
