@@ -2,6 +2,12 @@
 Change log
 ==========
 
+v0.12.0 (2018-03-06)
+-------------------
+
+* Property to configure INTERNAL_IPS via .ini or envvar.
+* Allow to override DEBUG_TOOLBAR_MIDDLEWARE in settings.
+
 v0.11.0 (2018-02-02)
 -------------------
 

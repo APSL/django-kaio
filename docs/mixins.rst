@@ -277,8 +277,10 @@ in the ``requirements.txt`` of the project, otherwise we will not have activated
 **ENABLE_DEBUG_TOOLBAR**
     by default same as **DEBUG**. ``False`` if the module is not installed.
 
-**ALLOWED_HOSTS**
-    allowed hosts. No value by default. It must be set always in production.
+**INTERNAL_IPS**
+    Debug Toolbar is shown only if your IP is listed in the INTERNAL_IPS setting.
+    CSV of IPs , by default `127.0.0.1`.
+
 
 EmailMixin
 ----------
