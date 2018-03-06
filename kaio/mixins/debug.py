@@ -26,6 +26,7 @@ class DebugMixin(object):
     # https://django-debug-toolbar.readthedocs.io/en/stable/installation.html#explicit-setup
     DEBUG_TOOLBAR_PATCH_SETTINGS = False
     DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
+    DEBUG_TOOLBAR_MIDDLEWARE = 'debug_toolbar.middleware.DebugToolbarMiddleware'
 
     @property
     def ENABLE_DEBUG_TOOLBAR(self):
@@ -58,5 +59,5 @@ class DebugMixin(object):
         for middleware_setting in middlewares_settings:
             middlewares = getattr(self, middleware_setting, None)
             if middlewares is not None:
-                if 'debug_toolbar.middleware.DebugToolbarMiddleware' not in middlewares:
-                    middlewares.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
+                if self.DEBUG_TOOLBAR_MIDDLEWARE not in middlewares:
+                    middlewares.insert(0, self.DEBUG_TOOLBAR_MIDDLEWARE)
