@@ -441,6 +441,9 @@ in our development and production environments for the project configuration.
 **LOG_FORMATTER_CLASS**
     custom formatter class. By default no formatter class is used.
 
+**LOG_FORMATTER_EXTRA_FIELDS**
+    optional extra fields passed to the logger formatter class.
+
 **SENTRY_ENABLED**
     by default ``False``.
 

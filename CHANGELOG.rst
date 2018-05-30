@@ -2,20 +2,25 @@
 Change log
 ==========
 
+Unreleased
+----------
+
+* Add optional LOG_FORMATTER_EXTRA_FIELDS setting.
+
 v0.12.0 (2018-03-06)
--------------------
+--------------------
 
 * Property to configure INTERNAL_IPS via .ini or envvar.
 * Allow to override DEBUG_TOOLBAR_MIDDLEWARE in settings.
 
 v0.11.0 (2018-02-02)
--------------------
+--------------------
 
 * Support to set DATABASES OPTIONS options.
 * Support to customize logger formatter class and format.
 
 v0.10.0 (2017-11-08)
--------------------
+--------------------
 
 * Add support for sass (and scss) and remove support for coffescript.
 

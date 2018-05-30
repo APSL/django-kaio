@@ -186,6 +186,10 @@ class LogsMixin(object):
         if formatter_class:
             formatters_config['default']['()'] = formatter_class
 
+        extra_fields = get('LOG_FORMATTER_EXTRA_FIELDS')
+        if extra_fields:
+            formatters_config['default']['extra_fields'] = extra_fields
+
         return formatters_config
 
     @property
