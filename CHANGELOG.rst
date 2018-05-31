@@ -2,8 +2,8 @@
 Change log
 ==========
 
-Unreleased
-----------
+v0.13.0 (2018-05-31)
+--------------------
 
 * Add optional LOG_FORMATTER_EXTRA_FIELDS setting.
 * Add mixin for django-storages (currently only AWS S3).
