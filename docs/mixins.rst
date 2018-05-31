@@ -407,13 +407,6 @@ in our development and production environments for the project configuration.
 
 **Parameters**
 
-**EMAIL_SUBJECT_PREFIX**
-    Prefix to add to Django's subject. By default `[Django]`
-
-**Section**: Logs
-
-**Parameters**
-
 **LOG_LEVEL**
     sets the project logging level. By default: ``DEBUG``
 
@@ -518,6 +511,48 @@ Security base settings.
     This controls the behavior of the request object’s is_secure() method.
     By default returns the tuple of the combination of the ``SECURE_PROXY_SSL_HEADER_NAME`` and ``SECURE_PROXY_SSL_HEADER_VALUE``.
     https://docs.djangoproject.com/en/1.10/ref/settings/#secure-proxy-ssl-header
+
+
+StorageMixin
+------------
+
+Mixin that provides settings for django-storages. Currently only supports AWS S3.
+Look at http://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html for details.
+
+.. code-block:: python
+
+    from kaio.mixins import StorageMixin
+
+**Section**: Storage
+
+**Parameters**
+
+**DEFAULT_FILE_STORAGE**
+    By default: ``storages.backends.s3boto3.S3Boto3Storage``. For tests it might be convenient to change it by ``django.core.files.storage.FileSystemStorage``.
+
+**AWS_S3_SIGNATURE_VERSION**
+    By default ``s3v4``.
+
+**AWS_S3_REGION_NAME**
+    By default ``None``. Example: ``eu-west-1``.
+
+**AWS_STORAGE_BUCKET_NAME**
+    By default ``''``.
+
+**AWS_LOCATION**
+    By default ``''``.
+
+**AWS_ACCESS_KEY_ID**
+    By default ``''``.
+
+**AWS_SECRET_ACCESS_KEY**
+    By default ``''``.
+
+**AWS_QUERYSTRING_AUTH**
+    By default ``True``.
+
+**AWS_DEFAULT_ACL**
+    By default ``private``.
 
 
 WhiteNoiseMixin

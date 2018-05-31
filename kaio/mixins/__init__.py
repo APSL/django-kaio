@@ -11,4 +11,5 @@ from .security import SecurityMixin
 from .debug import DebugMixin
 from .celeryconf import CeleryMixin
 from .email import EmailMixin
+from .storage import StorageMixin
 from .whitenoise import WhiteNoiseMixin
