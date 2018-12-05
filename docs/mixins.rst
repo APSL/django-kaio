@@ -21,13 +21,13 @@ production. If a cache type is not defined, it means that we have ``dummy`` cach
 **Parameters**
 
 **CACHE_TYPE**
-    cache tupe, by default ``locmem``, options: ``locmem``, ``redis``, ``dummy``
+    cache type, by default ``locmem``, options: ``locmem``, ``redis``, ``dummy``
 
 **CACHE_REDIS_DB**
     redis database number that we'll use as cache into redis. By default, ``2``.
 
 **CACHE_REDIS_PASSWORD**
-    redis for password. By default without password.
+    Password for redis. By default without password.
 
 **REDIS_HOST**
     redis host name. By default ``localhost``
@@ -39,10 +39,41 @@ production. If a cache type is not defined, it means that we have ``dummy`` cach
     prefix to use in the cache keys for the projecte. By default is the project ``SLUG``.
 
 **CACHE_TIMEOUT**
-    Cache expiration time. By default ``3600`` secons, 1 hour.
+    Cache expiration time. By default ``3600`` seconds, 1 hour.
 
 **CACHE_MAX_ENTRIES**
     Maximum number of cached entries. By default ``10000``.
+
+**CachesMixin** also allows to configure the cache for sessions. You must set
+``SESSION_ENGINE = 'django.contrib.sessions.backends.cache'`` or ``'.cached_db'``.
+By default use almost same settings as default cache.
+
+**SESSION_CACHE_TYPE**
+    cache type, by default ``CACHE_TYPE``, options: ``redis``
+
+**SESSION_CACHE_REDIS_DB**
+    redis database number that we'll use as cache into redis. By default, ``3``.
+
+**SESSION_CACHE_REDIS_PASSWORD**
+    Password for redis. By default without password.
+
+**SESSION_REDIS_HOST**
+    redis host name. By default ``REDIS_HOST``
+
+**SESSION_REDIS_PORT**
+    port of the redis server. By default ``REDIS_PORT``
+
+**SESSION_CACHE_PREFIX**
+    prefix to use in the cache keys for the projecte. By default ``CACHE_PREFIX_session``.
+
+**SESSION_CACHE_TIMEOUT**
+    Cache expiration time. By default ``None`` (no timeout).
+
+**SESSION_CACHE_MAX_ENTRIES**
+    Maximum number of cached entries. By default ``1000000``.
+
+**SESSION_CACHE_ALIAS**
+    Selects the cache to use for sessions. By default ``sessions``.
 
 
 CeleryMixin
@@ -187,15 +218,14 @@ In order to be able to use it you have to follow two steps:
 This last step is advisable to follow it as a good practice just in case
 in any future moment we want the **COMPRESS_OFFLINE** feature.
 
-Example of the [Compress] section with compress activated, with coffescript support and
-compress offline activated. **LESS** suport is active by default:
+Example of the [Compress] section with compress activated and compress offline
+activated. **LESS**, **SASS** and **BABEL** suport are active by default:
 
 .. code-block:: python
 
     ...
     [Compress]
     COMPRESS_ENABLED = True
-    COMPRESS_COFFEE_ENABLED = True
     COMPRESS_OFFLINE = True
     ...
 
