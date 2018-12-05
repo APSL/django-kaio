@@ -2,6 +2,11 @@
 Change log
 ==========
 
+v0.14.0 (2018-12-18)
+--------------------
+
+* Add SESSION_CACHE_XXX settings in CachesMixin to allow to configure sessions in cache.
+
 v0.13.0 (2018-05-31)
 --------------------
 
