@@ -5,7 +5,7 @@ try:
 except ImportError:
     pass
 import os
-from os.path import join, pardir, abspath
+from os.path import abspath, curdir, isfile, join, pardir
 import sys
 
 
@@ -61,19 +61,22 @@ class Options(object):
     def _is_raw_option(cls, option):
         return option.upper() in cls.RAW_OPTIONS
 
-    def _conf_paths(self):
-        paths = []
-        current = abspath(".")
+    def _conf_path(self):
+        """Search .ini file from current directory (included) up to "/" (excluded)"""
+        current = abspath(curdir)
         while current != "/":
-            paths.append(join(current, DEFAULT_CONF_NAME))
+            filename = join(current, DEFAULT_CONF_NAME)
+            if isfile(filename):
+                return filename
             current = abspath(join(current, pardir))
-        return list(reversed(paths))
+        # If the .ini file doesn't exist returns an empty filename so default values are used
+        return ''
 
     def _read_config(self):
         try:
-            self.config_file = self.config.read(self._conf_paths())[0]
+            self.config_file = self.config.read(self._conf_path())[0]
         except IndexError:
-            self.config_file = abspath(join('.', DEFAULT_CONF_NAME))
+            self.config_file = abspath(join(curdir, DEFAULT_CONF_NAME))
 
     def _cast_value(self, value):
         """Support: int, bool, str"""
@@ -120,9 +123,9 @@ class Options(object):
         for name, option in self.options.items():
             if sys.version_info[0] < 3:
                 try:
-                    value = unicode(option.value)
+                    value = unicode(option.value)  # noqa
                 except UnicodeDecodeError:
-                    value = unicode(option.value, 'utf-8')
+                    value = unicode(option.value, 'utf-8')  # noqa
             else:
                 value = str(value)
 
