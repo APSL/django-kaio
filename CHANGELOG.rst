@@ -2,6 +2,11 @@
 Change log
 ==========
 
+v0.14.1 (2019-04-05)
+--------------------
+
+* Parse only the first .ini file starting from current directory (included) up to "/" (excluded).
+
 v0.14.0 (2018-12-18)
 --------------------
 
