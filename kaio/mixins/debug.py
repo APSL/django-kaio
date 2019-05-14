@@ -25,7 +25,6 @@ class DebugMixin(object):
 
     # https://django-debug-toolbar.readthedocs.io/en/stable/installation.html#explicit-setup
     DEBUG_TOOLBAR_PATCH_SETTINGS = False
-    DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
     DEBUG_TOOLBAR_MIDDLEWARE = 'debug_toolbar.middleware.DebugToolbarMiddleware'
 
     @property
