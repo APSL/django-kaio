@@ -22,7 +22,7 @@ class CeleryMixin(object):
 
     def _redis_available(self):
         try:
-            import redis
+            import redis  # noqa: F401
         except ImportError:
             return False
 
@@ -95,7 +95,7 @@ class CeleryMixin(object):
     def CELERY_REDIS_RESULT_DB(self):
         try:
             return int(get('CELERY_REDIS_RESULT_DB', 0))
-        except:
+        except Exception:
             return 0
 
     @property

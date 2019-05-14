@@ -33,7 +33,7 @@ class DebugMixin(object):
         enabled = get('ENABLE_DEBUG_TOOLBAR', self.DEBUG)
         if enabled:
             try:
-                import debug_toolbar
+                import debug_toolbar  # noqa: F401
             except ImportError:
                 return False
             else:

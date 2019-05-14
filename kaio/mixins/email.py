@@ -29,7 +29,7 @@ class EmailMixin(object):
         backend = 'django.core.mail.backends.smtp.EmailBackend'
         if 'django_yubin' in self.INSTALLED_APPS:
             try:
-                import django_yubin
+                import django_yubin  # noqa: F401
                 backend = 'django_yubin.smtp_queue.EmailBackend'
             except ImportError:
                 logger.warn('WARNING: django_yubin in INSTALLED_APPS but not pip installed.')
