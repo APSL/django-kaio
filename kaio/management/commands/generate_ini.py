@@ -47,7 +47,7 @@ class Command(NoArgsCommand):
                 value = kaio_value or default_value
 
                 if sys.version_info[0] < 3:
-                    value = unicode(value).encode('utf8')
+                    value = unicode(value).encode('utf8')  # noqa: F821
                 else:
                     value = str(value)
 

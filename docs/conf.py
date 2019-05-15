@@ -156,6 +156,3 @@ texinfo_documents = [
      author, 'django-kaio', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-
-

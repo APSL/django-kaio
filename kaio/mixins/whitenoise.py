@@ -17,7 +17,7 @@ class WhiteNoiseMixin(object):
         enabled = get('ENABLE_WHITENOISE', False)
         if enabled:
             try:
-                import whitenoise
+                import whitenoise  # noqa: F401
                 self._add_whitenoise_to_installed_apps()
                 self._add_whitenoise_to_middleware()
             except ImportError:

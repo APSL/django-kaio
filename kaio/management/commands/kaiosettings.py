@@ -71,11 +71,11 @@ class Command(NoArgsCommand):
         puts()
 
         not_configured = set(user_settings.keys()) - set(opts.keys())
-        #not_configured = not_configured - set([
-            #'INSTALLED_APPS',
-            #'MIDDLEWARE_CLASSES',
-            #'CONTEXT_PROCESSORS',
-            #])
+        # not_configured = not_configured - set([
+        #     'INSTALLED_APPS',
+        #     'MIDDLEWARE_CLASSES',
+        #     'CONTEXT_PROCESSORS',
+        #     ])
         pformat = "%30s: %-50s"
         puts(pformat % (
             colored.white('Option'),
@@ -83,13 +83,13 @@ class Command(NoArgsCommand):
         for key in sorted(not_configured):
             if key not in default_settings:
                 puts(pformat % (colored.blue(key),
-                    user_settings[key]))
-                    #'###'))
+                     user_settings[key]))
             elif user_settings[key] != default_settings[key]:
                 puts(pformat % (
                     colored.blue(key),
-                    colored.green(user_settings[key])))
-                    #colored.white(default_settings[key])))
+                    colored.green(user_settings[key])
+                    # colored.white(default_settings[key])
+                ))
 
     def handle(self, **options):
         return self.handle_noargs(**options)

@@ -19,13 +19,12 @@ class CMSMixin(object):
 
     @property
     def CMS_LANGUAGES(self):
-        lang_dict = lambda code, name: {
-                'code': code,
-                'name': name,
-                'hide_untranslated': code == self.LANGUAGE_CODE,
-                'redirect_on_fallback': not (code == self.LANGUAGE_CODE),
-            }
-        langs_list = [lang_dict(code, name) for code, name in self.LANGUAGES]
+        langs_list = [{
+            'code': code,
+            'name': name,
+            'hide_untranslated': code == self.LANGUAGE_CODE,
+            'redirect_on_fallback': not (code == self.LANGUAGE_CODE),
+        } for code, name in self.LANGUAGES]
 
         return {
             self.SITE_ID: langs_list,
