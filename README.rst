@@ -2,6 +2,9 @@
 django-kaio
 ===========
 
+.. image:: https://img.shields.io/pypi/v/django-kaio.svg
+    :target: https://pypi.python.org/pypi/django-kaio/
+
 Class based settings for Django projects that can be read from multiple sources.
 
 
