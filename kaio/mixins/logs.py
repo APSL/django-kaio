@@ -97,6 +97,7 @@ class LogsMixin(object):
         if self.LOG_FILE:
             handlers['default']['class'] = 'logging.FileHandler'
             handlers['default']['filename'] = self.LOG_FILE
+            handlers['default']['encoding'] = 'utf-8',
 
         handlers['mail_admins'] = {
             'level': 'ERROR',
