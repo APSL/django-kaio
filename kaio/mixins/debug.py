@@ -44,6 +44,11 @@ class DebugMixin(object):
     @property
     def INTERNAL_IPS(self):
         ips = [ip.strip() for ip in get('INTERNAL_IPS', '127.0.0.1').split(',') if ip]
+        # For Docker: https://django-debug-toolbar.readthedocs.io/en/stable/installation.html#configure-internal-ips
+        if self.ENABLE_DEBUG_TOOLBAR:
+            import socket
+            _hostname, _aliases, docker_ips = socket.gethostbyname_ex(socket.gethostname())
+            ips += [ip[:-1] + '1' for ip in docker_ips]
         return ips
 
     def _add_debug_toolbar_to_installed_apps(self):

@@ -310,6 +310,8 @@ in the ``requirements.txt`` of the project, otherwise we will not have activated
 **INTERNAL_IPS**
     Debug Toolbar is shown only if your IP is listed in the INTERNAL_IPS setting.
     CSV of IPs , by default `127.0.0.1`.
+    If ``ENABLE_DEBUG_TOOLBAR`` is ``True`` it automatically appends IPs for showing the toolbar inside contaniers.
+    https://django-debug-toolbar.readthedocs.io/en/stable/installation.html#configure-internal-ips
 
 
 EmailMixin
