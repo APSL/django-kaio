@@ -3,4 +3,4 @@
 from .options import Options  # noqa
 
 
-__VERSION__ = '0.14.3'
+__VERSION__ = '0.15.0'

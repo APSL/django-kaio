@@ -2,6 +2,13 @@
 Change log
 ==========
 
+v0.15.0 (2022-05-02)
+--------------------
+
+* Automatically configure ``INTERNAL_IPS`` to show debug_toolbar inside contaniers when ``ENABLE_DEBUG_TOOLBAR`` is
+  ``True``.
+* Update security fixes in dependencies (thanks GitHub dependabot).
+
 v0.14.3 (2020-11-05)
 --------------------
 
