@@ -8,7 +8,7 @@ idna==2.5
 imagesize==0.7.1
 Jinja2==2.11.3
 livereload==2.5.1
-MarkupSafe==1.0
+MarkupSafe==1.1.1
 pathtools==0.1.2
 port-for==0.3.1
 Pygments==2.7.4
