@@ -2,6 +2,11 @@
 Change log
 ==========
 
+v1.0.0 (2022-05-05)
+--------------------
+
+* Add new mixin for Sentry SDK and remove old Raven and Sentry settings from LogsMixin.
+
 v0.15.0 (2022-05-02)
 --------------------
 
