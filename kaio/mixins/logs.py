@@ -44,25 +44,6 @@ class LogsMixin(object):
             modules = []
         return modules
 
-    @property
-    def SENTRY_ENABLED(self):
-        enabled = get('SENTRY_ENABLED', False)
-        if enabled:
-            try:
-                import raven  # noqa
-                self.add_sentry_to_installed_apps()
-            except ImportError:
-                return False
-        return enabled
-
-    @property
-    def SENTRY_DSN(self):
-        return get('SENTRY_DSN', '')
-
-    @property
-    def SENTRY_TRANSPORT(self):
-        return get('SENTRY_TRANSPORT', 'raven.transport.threaded.ThreadedHTTPTransport')
-
     # The best way to propagate logs up to the root logger is to prevent
     # Django logging configuration and handle it ourselves.
     #
@@ -104,12 +85,6 @@ class LogsMixin(object):
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
         }
-
-        if self.SENTRY_ENABLED:
-            handlers['sentry'] = {
-                'level': 'ERROR',
-                'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-            }
 
         return handlers
 
@@ -153,26 +128,6 @@ class LogsMixin(object):
                 import sys
                 sys.stderr.write(exc)
 
-        if self.SENTRY_ENABLED:
-            loggers['']['handlers'].append('sentry')
-            loggers['rq.worker']['handlers'].append('sentry')
-            loggers['django']['handlers'].append('sentry')
-            loggers['raven'] = {
-                'handlers': ['default'],
-                'level': self.LOG_LEVEL,
-                'propagate': False,
-            }
-            loggers['sentry.errors'] = {
-                'handlers': ['default'],
-                'level': self.LOG_LEVEL,
-                'propagate': False,
-            }
-        else:
-            loggers['raven'] = {
-                'handlers': ['default'],
-                'level': 'WARNING',
-            }
-
         return loggers
 
     @property
@@ -200,7 +155,3 @@ class LogsMixin(object):
                 '()': 'django.utils.log.RequireDebugFalse',
             }
         }
-
-    def add_sentry_to_installed_apps(self):
-        if 'raven.contrib.django.raven_compat' not in self.INSTALLED_APPS:
-            self.INSTALLED_APPS.append('raven.contrib.django.raven_compat')

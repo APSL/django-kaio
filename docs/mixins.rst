@@ -469,14 +469,19 @@ in our development and production environments for the project configuration.
 **LOG_FORMATTER_EXTRA_FIELDS**
     optional extra fields passed to the logger formatter class.
 
-**SENTRY_ENABLED**
-    by default ``False``.
+
+SentryMixin
+-----------
+
+Only adds the Django integration. You can change this overwriting the ``integrations()`` method. In case
+you need more low-level control, you can overwrite the ``sentry_init()`` method.
+
+.. code-block:: python
+
+    from kaio.mixins import SentryMixin
 
 **SENTRY_DSN**
-    by default ``''``.
-
-**SENTRY_TRANSPORT**
-    by default ``'raven.transport.threaded.ThreadedHTTPTransport'``.
+    The DSN to configure Sentry. If blank, Sentry integration is not initialized. By default ``''``.
 
 
 PathsMixin
