@@ -483,6 +483,9 @@ you need more low-level control, you can overwrite the ``sentry_init()`` method.
 **SENTRY_DSN**
     The DSN to configure Sentry. If blank, Sentry integration is not initialized. By default ``''``.
 
+**SENTRY_IGNORE_LOGGERS**
+    CSV of loggers to don't send to Sentry. By default ``'django.security.DisallowedHost'``.
+
 
 PathsMixin
 ----------
