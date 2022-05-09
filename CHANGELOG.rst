@@ -2,6 +2,12 @@
 Change log
 ==========
 
+v1.1.0 (2022-05-09)
+--------------------
+
+* Add ``SENTRY_IGNORE_LOGGERS`` to allow to avoid sending noisy logs to Sentry.
+
+
 v1.0.1 (2022-05-05)
 --------------------
 
