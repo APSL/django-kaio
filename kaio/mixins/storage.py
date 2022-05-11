@@ -12,7 +12,7 @@ get = partial(opts.get, section='Storage')
 class StorageMixin(object):
     """Settings for django-storages
 
-    Currently only supports AWS S3.
+    Currently only supports AWS S3 with and without CloudFront.
     """
 
     # AWS S3 settings: http://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
@@ -28,6 +28,14 @@ class StorageMixin(object):
     @property
     def AWS_S3_REGION_NAME(self):
         return get('AWS_S3_REGION_NAME', None)
+
+    @property
+    def AWS_S3_ENDPOINT_URL(self):
+        return get('AWS_S3_ENDPOINT_URL', None)
+
+    @property
+    def AWS_S3_CUSTOM_DOMAIN(self):
+        return get("AWS_S3_CUSTOM_DOMAIN", None)
 
     @property
     def AWS_STORAGE_BUCKET_NAME(self):
