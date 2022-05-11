@@ -2,18 +2,21 @@
 Change log
 ==========
 
+v1.2.0 (2022-05-11)
+--------------------
+
+* Add ``AWS_S3_ENDPOINT_URL`` and ``AWS_S3_CUSTOM_DOMAIN`` to ``StorageMixin`` to support CloudFront.
+
 v1.1.0 (2022-05-09)
 --------------------
 
 * Add ``SENTRY_IGNORE_LOGGERS`` to allow to avoid sending noisy logs to Sentry.
-
 
 v1.0.1 (2022-05-05)
 --------------------
 
 * Update requirements versions to fix build errors in ReadTheDocs.
 * No new features.
-
 
 v1.0.0 (2022-05-05)
 --------------------
