@@ -576,6 +576,12 @@ Look at http://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html 
 **AWS_S3_REGION_NAME**
     By default ``None``. Example: ``eu-west-1``.
 
+**AWS_S3_ENDPOINT_URL**
+    By default ``None``.
+
+**AWS_S3_CUSTOM_DOMAIN**
+    By default ``None``.
+
 **AWS_STORAGE_BUCKET_NAME**
     By default ``''``.
 
