@@ -81,38 +81,50 @@ CeleryMixin
 
 This mixin allows us to configure Celery_ in case we use it in our application.
 
-.. _Celery: http://docs.celeryproject.org/en/latest/index.html
+.. _Celery: https://docs.celeryq.dev/en/stable/
 
 .. code-block:: python
 
     from kaio.mixins import CeleryMixin
 
-**Section**: Cache
+**Section**: Celery
 
 **Parameters**
 
+**CELERY_DISABLE_RATE_LIMITS**
+    ``True``
+
+**CELERYBEAT_SCHEDULER**
+    ``django_celery_beat.schedulers:DatabaseScheduler``
+
+**CELERY_DEFAULT_QUEUE**
+    Default: ``celery``.
+
 **CELERY_RESULT_BACKEND**
-    todo
-
-**CELERY_ALWAYS_EAGER**
-    Default ``True``.
-
-**CELERY_EAGER_PROPAGATES_EXCEPTIONS**
-    Default ``True``.
+    Default ``redis://{REDIS_HOST}:{REDIS_PORT}/{CELERY_REDIS_RESULT_DB}`` if Redis is available, else ``None``.
 
 **CELERY_IGNORE_RESULT**
-    Default ``True``.
+    Default ``False``.
+
+**CELERY_RESULT_EXPIRES**
+    Default: ``86400`` (1 day in seconds).
 
 **CELERY_MAX_CACHED_RESULTS**
     Default ``5000``.
 
-**BROKER_TYPE**
-    Default ``redis``.
+**CELERY_CACHE_BACKEND**
+    Default: ``default``
 
-**CELERY_REDIS_BROKER_DB**
-    Default ``0``.
+**CELERY_ALWAYS_EAGER**
+    Default ``False``.
+
+**CELERY_EAGER_PROPAGATES_EXCEPTIONS**
+    Default ``True``.
 
 **CELERY_REDIS_RESULT_DB**
+    Default ``0``.
+
+**CELERY_REDIS_BROKER_DB**
     Default ``0``.
 
 **RABBITMQ_HOST**
@@ -130,8 +142,14 @@ This mixin allows us to configure Celery_ in case we use it in our application.
 **RABBITMQ_VHOST**
     Default ``/``.
 
+**BROKER_TYPE**
+    Default ``redis``.
+
 **BROKER_URL**
-    todo
+    * Default for Redis: ``redis://{REDIS_HOST}:{REDIS_PORT}/{CELERY_REDIS_RESULT_DB}``.
+    * Default for RabbitMQ:
+      ``amqp://{RABBITMQ_USER}:{RABBITMQ_PASSWD}@{RABBITMQ_HOST}:{RABBITMQ_PORT}/{RABBITMQ_VHOST}``
+    * Default for others: ``django://``.
 
 
 CmsMixin

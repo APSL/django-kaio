@@ -1,12 +1,12 @@
-# -*- coding: utf-8 -*-
-
+from functools import partial
 import logging
 from kaio import Options
-from functools import partial
+
 
 SUPPORTED_BROKER_TYPES = ['redis', 'rabbitmq']
 DEFAULT_BROKER_TYPE = 'redis'
 DEFAULT_BROKER_URL = 'django://'  # used if cannot setup redis or rabbitmq
+
 
 opts = Options()
 get = partial(opts.get, section='Celery')
@@ -18,7 +18,7 @@ class CeleryMixin(object):
     """Celery APSL Custom mixin"""
 
     CELERY_DISABLE_RATE_LIMITS = True
-    CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+    CELERYBEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
     def _redis_available(self):
         try:
@@ -30,6 +30,10 @@ class CeleryMixin(object):
             return False
 
         return True
+
+    @property
+    def CELERY_DEFAULT_QUEUE(self):
+        return get('CELERY_DEFAULT_QUEUE', 'celery')
 
     @property
     def CELERY_RESULT_BACKEND(self):
@@ -44,26 +48,21 @@ class CeleryMixin(object):
             return None
 
         host, port = self.REDIS_HOST, self.REDIS_PORT
-
         if host and port:
-            default = "redis://{host}:{port}/{db}".format(
-                    host=host, port=port,
-                    db=self.CELERY_REDIS_RESULT_DB)
-
-        return default
-
-    @property
-    def CELERY_ALWAYS_EAGER(self):
-        return get('CELERY_ALWAYS_EAGER', True)
-
-    @property
-    def CELERY_EAGER_PROPAGATES_EXCEPTIONS(self):
-        return get('CELERY_EAGER_PROPAGATES_EXCEPTIONS', True)
+            return "redis://{host}:{port}/{db}".format(
+                host=host,
+                port=port,
+                db=self.CELERY_REDIS_RESULT_DB,
+            )
 
     @property
     def CELERY_IGNORE_RESULT(self):
         """Whether to store the task return values or not (tombstones)"""
-        return get('CELERY_IGNORE_RESULT', True)
+        return get('CELERY_IGNORE_RESULT', False)
+
+    @property
+    def CELERY_RESULT_EXPIRES(self):
+        return get('CELERY_RESULT_EXPIRES', 86400)  # 1 day in seconds
 
     @property
     def CELERY_MAX_CACHED_RESULTS(self):
@@ -73,29 +72,29 @@ class CeleryMixin(object):
         return get('CELERY_MAX_CACHED_RESULTS', 5000)
 
     @property
-    def BROKER_TYPE(self):
-        """Custom setting allowing switch between rabbitmq, redis"""
-
-        broker_type = get('BROKER_TYPE', DEFAULT_BROKER_TYPE)
-        if broker_type not in SUPPORTED_BROKER_TYPES:
-            log.warn("Specified BROKER_TYPE {} not supported. Backing to default {}".format(
-                broker_type, DEFAULT_BROKER_TYPE))
-            return DEFAULT_BROKER_TYPE
-        else:
-            return broker_type
+    def CELERY_CACHE_BACKEND(self):
+        return get('CELERY_CACHE_BACKEND', 'default')
 
     @property
-    def CELERY_REDIS_BROKER_DB(self):
-        try:
-            return int(get('CELERY_REDIS_BROKER_DB', 0))
-        except ValueError:
-            return 0
+    def CELERY_ALWAYS_EAGER(self):
+        return get('CELERY_ALWAYS_EAGER', False)
+
+    @property
+    def CELERY_EAGER_PROPAGATES_EXCEPTIONS(self):
+        return get('CELERY_EAGER_PROPAGATES_EXCEPTIONS', True)
 
     @property
     def CELERY_REDIS_RESULT_DB(self):
         try:
             return int(get('CELERY_REDIS_RESULT_DB', 0))
         except Exception:
+            return 0
+
+    @property
+    def CELERY_REDIS_BROKER_DB(self):
+        try:
+            return int(get('CELERY_REDIS_BROKER_DB', 0))
+        except ValueError:
             return 0
 
     @property
@@ -119,6 +118,18 @@ class CeleryMixin(object):
         return get('RABBITMQ_VHOST', '/')
 
     @property
+    def BROKER_TYPE(self):
+        """Custom setting allowing switch between rabbitmq, redis"""
+
+        broker_type = get('BROKER_TYPE', DEFAULT_BROKER_TYPE)
+        if broker_type not in SUPPORTED_BROKER_TYPES:
+            log.warn("Specified BROKER_TYPE {} not supported. Backing to default {}".format(
+                broker_type, DEFAULT_BROKER_TYPE))
+            return DEFAULT_BROKER_TYPE
+        else:
+            return broker_type
+
+    @property
     def BROKER_URL(self):
         """Sets BROKER_URL depending on redis or rabbitmq settings"""
 
@@ -130,13 +141,11 @@ class CeleryMixin(object):
 
         redis_available = self._redis_available()
         broker_type = self.BROKER_TYPE
-
         if broker_type == 'redis' and not redis_available:
             log.warn("Choosed broker type is redis, but redis not available. \
                     Check redis package, and REDIS_HOST, REDIS_PORT settings")
 
         if broker_type == 'redis' and redis_available:
-
             return 'redis://{host}:{port}/{db}'.format(
                     host=self.REDIS_HOST,
                     port=self.REDIS_PORT,

@@ -2,6 +2,11 @@
 Change log
 ==========
 
+Unreleased
+----------
+
+* Improve ``CeleryMixin``: better and updated default values and some new settings.
+
 v1.2.0 (2022-05-11)
 --------------------
 
