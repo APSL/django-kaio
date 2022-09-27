@@ -350,7 +350,8 @@ operate with ``django-yubin``, leaving its final configuration for the productio
     by default ``Example <info@example.com>``.
 
 **EMAIL_BACKEND**
-    by default ``django.core.mail.backends.smtp.EmailBackend`` or ``django_yubin.smtp_queue.EmailBackend`` if django_yubin is installed.
+    by default ``django.core.mail.backends.smtp.EmailBackend``, ``django_yubin.smtp_queue.EmailBackend``
+    or ``django_yubin.backends.QueuedEmailBackend`` if django_yubin is installed and its version.
 
 **EMAIL_FILE_PATH**
     by default ``None``.

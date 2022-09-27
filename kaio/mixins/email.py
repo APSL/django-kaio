@@ -26,14 +26,24 @@ class EmailMixin(object):
         if backend:
             return backend
 
-        backend = 'django.core.mail.backends.smtp.EmailBackend'
-        if 'django_yubin' in self.INSTALLED_APPS:
-            try:
-                import django_yubin  # noqa: F401
-                backend = 'django_yubin.smtp_queue.EmailBackend'
-            except ImportError:
-                logger.warn('WARNING: django_yubin in INSTALLED_APPS but not pip installed.')
-        return backend
+        if 'django_yubin' not in self.INSTALLED_APPS:
+            return 'django.core.mail.backends.smtp.EmailBackend'
+
+        try:
+            import django_yubin  # type: ignore  # noqa
+        except ImportError:
+            logger.warn('WARNING: django_yubin in INSTALLED_APPS but not pip installed.')
+            return 'django.core.mail.backends.smtp.EmailBackend'
+
+        try:
+            from django_yubin.version import VERSION  # type: ignore  # noqa
+            if VERSION[0] > 1:
+                return 'django_yubin.backends.QueuedEmailBackend'
+            else:
+                return 'django_yubin.smtp_queue.EmailBackend'
+        except Exception:
+            return 'django_yubin.smtp_queue.EmailBackend'
+
 
     @property
     def EMAIL_FILE_PATH(self):
