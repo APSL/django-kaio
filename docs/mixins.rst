@@ -380,6 +380,18 @@ operate with ``django-yubin``, leaving its final configuration for the productio
 **MAILER_USE_BACKEND**
     by default ``django.core.mail.backends.smtp.EmailBackend``.
 
+**MAILER_HC_QUEUED_LIMIT_OLD**
+    If there are emails created, enqueued or in progress for more than x minutes, Yubin HealthCheck
+    view will show an error. By default ``30``.
+
+**MAILER_STORAGE_BACKEND**
+    by default ``django_yubin.storage_backends.DatabaseStorageBackend``.
+
+**MAILER_FILE_STORAGE_DIR**
+    by default ``yubin``.
+
+Following settings are deprecated, they exist for backwards compatibility.
+
 **MAILER_MAIL_ADMINS_PRIORITY**
     by default ``None``.
 

@@ -84,6 +84,21 @@ class EmailMixin(object):
         return get('MAILER_USE_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
 
     @property
+    def MAILER_HC_QUEUED_LIMIT_OLD(self):
+        return get('MAILER_HC_QUEUED_LIMIT_OLD', 30)
+
+    @property
+    def MAILER_STORAGE_BACKEND(self):
+        return get('MAILER_STORAGE_BACKEND', "django_yubin.storage_backends.DatabaseStorageBackend")
+
+    @property
+    def MAILER_FILE_STORAGE_DIR(self):
+        return get('MAILER_FILE_STORAGE_DIR', "yubin")
+
+
+    # deprecated, for backwards compatibility
+
+    @property
     def MAILER_MAIL_ADMINS_PRIORITY(self):
         try:
             from django_yubin import constants
