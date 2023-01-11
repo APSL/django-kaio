@@ -2,6 +2,12 @@
 Change log
 ==========
 
+v1.4.1 (2023-01-11)
+--------------------
+
+* Add more settings for django_yubin: MAILER_HC_QUEUED_LIMIT_OLD, MAILER_STORAGE_BACKEND and
+  MAILER_FILE_STORAGE_DIR.
+
 v1.4.0 (2022-09-27)
 --------------------
 
