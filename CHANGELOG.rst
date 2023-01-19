@@ -2,6 +2,11 @@
 Change log
 ==========
 
+v1.4.2 (2023-01-19)
+--------------------
+
+* Add more settings for django_yubin: MAILER_STORAGE_DELETE.
+
 v1.4.1 (2023-01-11)
 --------------------
 
