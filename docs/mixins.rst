@@ -387,6 +387,9 @@ operate with ``django-yubin``, leaving its final configuration for the productio
 **MAILER_STORAGE_BACKEND**
     by default ``django_yubin.storage_backends.DatabaseStorageBackend``.
 
+**MAILER_STORAGE_DELETE**
+    by default ``True``.
+
 **MAILER_FILE_STORAGE_DIR**
     by default ``yubin``.
 

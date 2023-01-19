@@ -92,6 +92,10 @@ class EmailMixin(object):
         return get('MAILER_STORAGE_BACKEND', "django_yubin.storage_backends.DatabaseStorageBackend")
 
     @property
+    def MAILER_STORAGE_DELETE(self):
+        return get('MAILER_STORAGE_DELETE', True)
+
+    @property
     def MAILER_FILE_STORAGE_DIR(self):
         return get('MAILER_FILE_STORAGE_DIR', "yubin")
 
