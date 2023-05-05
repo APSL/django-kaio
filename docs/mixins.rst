@@ -602,7 +602,13 @@ Look at http://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html 
 **Parameters**
 
 **DEFAULT_FILE_STORAGE**
-    By default: ``storages.backends.s3boto3.S3Boto3Storage``. For tests it might be convenient to change it by ``django.core.files.storage.FileSystemStorage``.
+    By default: ``storages.backends.s3boto3.S3Boto3Storage``. For tests it might be convenient to change it to ``django.core.files.storage.FileSystemStorage``. Only in Django versions < 4.2.
+
+**DEFAULT_BACKEND_STORAGE**
+    By default: ``storages.backends.s3boto3.S3Boto3Storage``. For tests it might be convenient to change it to ``django.core.files.storage.FileSystemStorage``. Only in Django versions >= 4.2.
+
+**STATICFILES_BACKEND_STORAGE**
+    By default: ``django.contrib.staticfiles.storage.StaticFilesStorage``Only in Django versions >= 4.2.
 
 **AWS_S3_SIGNATURE_VERSION**
     By default ``s3v4``.

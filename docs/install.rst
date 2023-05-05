@@ -51,7 +51,6 @@ We need to configure two files of our project: ``manage.py`` and ``wsgi.py``
 
         execute_from_command_line(sys.argv)
 
-
 * wsgi.py
 
 .. code-block:: python
@@ -65,3 +64,17 @@ We need to configure two files of our project: ``manage.py`` and ``wsgi.py``
 
     application = get_wsgi_application()
 
+If you need or prefer to use asgi instead of wsgi:
+
+* asgi.py
+
+.. code-block:: python
+
+    import os
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "main.settings")
+    os.environ.setdefault("DJANGO_CONFIGURATION", "Base")
+
+    from configurations.asgi import get_asgi_application
+
+    application = get_asgi_application()

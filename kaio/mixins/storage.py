@@ -2,6 +2,7 @@
 
 from functools import partial
 
+import django
 from kaio import Options
 
 
@@ -9,17 +10,13 @@ opts = Options()
 get = partial(opts.get, section='Storage')
 
 
-class StorageMixin(object):
+class _BaseStorage(object):
     """Settings for django-storages
 
     Currently only supports AWS S3 with and without CloudFront.
     """
 
     # AWS S3 settings: http://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html
-
-    @property
-    def DEFAULT_FILE_STORAGE(self):
-        return get('DEFAULT_FILE_STORAGE', 'storages.backends.s3boto3.S3Boto3Storage')
 
     @property
     def AWS_S3_SIGNATURE_VERSION(self):
@@ -60,3 +57,24 @@ class StorageMixin(object):
     @property
     def AWS_DEFAULT_ACL(self):
         return get('AWS_DEFAULT_ACL', 'private')
+
+
+if django.VERSION[:2] < (4, 2):
+    class StorageMixin(_BaseStorage):
+        @property
+        def DEFAULT_FILE_STORAGE(self):
+            return get('DEFAULT_FILE_STORAGE', 'storages.backends.s3boto3.S3Boto3Storage')
+else:
+    class StorageMixin(_BaseStorage):
+        @property
+        def STORAGES(self):
+            return {
+                "default": {
+                    "BACKEND": get('DEFAULT_BACKEND_STORAGE',
+                                   'storages.backends.s3boto3.S3Boto3Storage')
+                },
+                "staticfiles": {
+                    "BACKEND": get('STATICFILES_BACKEND_STORAGE',
+                                   'django.contrib.staticfiles.storage.StaticFilesStorage')
+                },
+            }
