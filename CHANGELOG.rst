@@ -2,10 +2,12 @@
 Change log
 ==========
 
-v1.5.0 (2023-05-08)
+v1.5.0 (2023-06-29)
 --------------------
 
-* Support Python 3.11 and Django 4.2
+* Support Python 3.11 and Django 4.2.
+* Migrate ReadTheDocs configuration file to v2.
+* GitHub Actions to deploy to PyPI.
 
 v1.4.2 (2023-01-19)
 --------------------
