@@ -2,6 +2,11 @@
 Change log
 ==========
 
+[Unreleased]
+------------
+
+* Update requirements for building docs and use them to create reproducible builds in ReadTheDocs.
+
 v1.5.0 (2023-06-29)
 --------------------
 
