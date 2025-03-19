@@ -51,6 +51,12 @@ class DebugMixin(object):
             ips += [ip[:-1] + '1' for ip in docker_ips]
         return ips
 
+    @property
+    def ALLOWED_HOSTS_DEBUG_TOOLBAR(self):
+        if self.ENABLE_DEBUG_TOOLBAR:
+            return get("ALLOWED_HOSTS_DEBUG_TOOLBAR", "").split(",")
+        return []
+
     def _add_debug_toolbar_to_installed_apps(self):
         if 'debug_toolbar' not in self.INSTALLED_APPS:
             self.INSTALLED_APPS.append('debug_toolbar')

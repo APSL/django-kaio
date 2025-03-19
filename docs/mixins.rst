@@ -331,6 +331,12 @@ in the ``requirements.txt`` of the project, otherwise we will not have activated
     If ``ENABLE_DEBUG_TOOLBAR`` is ``True`` it automatically appends IPs for showing the toolbar inside contaniers.
     https://django-debug-toolbar.readthedocs.io/en/stable/installation.html#configure-internal-ips
 
+**ALLOWED_HOSTS_DEBUG_TOOLBAR**
+    If you want to set debug toolbar on an environment deployed with docker for testing, INTERNAL_IPS are not enough because the IP from your domain will not be
+    an INTERNAL_IP of the docker image. If ``ENABLE_DEBUG_TOOLBAR`` is ``True`` it will set ALLOWED_HOSTS_DEBUG_TOOLBAR from envvar, expecting a comma separated list.
+    Then, you can override ``SHOW_TOOLBAR_CALLBACK`` debug toolbar config with `kaio.debug_toolbar.show_toolbar` to take this allowed hosts into consideration.
+    https://django-debug-toolbar.readthedocs.io/en/stable/configuration.html#show-toolbar-callback
+
 
 EmailMixin
 ----------
