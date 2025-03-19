@@ -2,9 +2,11 @@
 Change log
 ==========
 
-[Unreleased]
-------------
+v1.6.0 (2025-03-19)
+--------------------
 
+* New setting ``ALLOWED_HOSTS_DEBUG_TOOLBAR`` for allowing debug toolbar for some hosts in addition
+  to ``INTERNAL_IPS``.
 * Update requirements for building docs and use them to create reproducible builds in ReadTheDocs.
 
 v1.5.0 (2023-06-29)
