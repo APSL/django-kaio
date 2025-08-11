@@ -16,6 +16,10 @@ class CachesMixin(object):
         return get('CACHE_TYPE', 'locmem')
 
     @property
+    def REDIS_SCHEME(self):
+        return get('REDIS_SCHEME', 'redis')
+
+    @property
     def REDIS_HOST(self):
         return get('REDIS_HOST', 'localhost')
 
@@ -48,9 +52,12 @@ class CachesMixin(object):
         if self.CACHE_TYPE == 'redis':
             CACHE = {
                 'BACKEND': 'django_redis.cache.RedisCache',
-                'LOCATION':  'redis://%s:%s/%s' % (self.REDIS_HOST,
-                                                   self.REDIS_PORT,
-                                                   self.CACHE_REDIS_DB),
+                'LOCATION':  '%s://%s:%s/%s' % (
+                    self.REDIS_SCHEME,
+                    self.REDIS_HOST,
+                    self.REDIS_PORT,
+                    self.CACHE_REDIS_DB
+                ),
                 'KEY_PREFIX': self.CACHE_PREFIX,
                 'TIMEOUT': self.CACHE_TIMEOUT,
                 'OPTIONS': {
@@ -80,6 +87,10 @@ class CachesMixin(object):
     @property
     def SESSION_CACHE_TYPE(self):
         return get('SESSION_CACHE_TYPE', self.CACHE_TYPE)
+
+    @property
+    def SESSION_REDIS_SCHEME(self):
+        return get('SESSION_REDIS_SCHEME', self.REDIS_SCHEME)
 
     @property
     def SESSION_REDIS_HOST(self):
@@ -119,7 +130,8 @@ class CachesMixin(object):
 
         CACHE = {
             'BACKEND': 'django_redis.cache.RedisCache',
-            'LOCATION':  'redis://%s:%s/%s' % (self.SESSION_REDIS_HOST,
+            'LOCATION':  '%s://%s:%s/%s' % (self.SESSION_REDIS_SCHEME,
+                                               self.SESSION_REDIS_HOST,
                                                self.SESSION_REDIS_PORT,
                                                self.SESSION_CACHE_REDIS_DB),
             'KEY_PREFIX': self.SESSION_CACHE_PREFIX,

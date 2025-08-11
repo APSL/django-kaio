@@ -30,6 +30,9 @@ production. If a cache type is not defined, it means that we have ``dummy`` cach
     Password for redis. By default without password.
 
 **REDIS_HOST**
+    redis scheme. By default ``redis``, use ``rediss`` for TLS.
+
+**REDIS_HOST**
     redis host name. By default ``localhost``
 
 **REDIS_PORT**

@@ -49,7 +49,8 @@ class CeleryMixin(object):
 
         host, port = self.REDIS_HOST, self.REDIS_PORT
         if host and port:
-            return "redis://{host}:{port}/{db}".format(
+            return "{scheme}://{host}:{port}/{db}".format(
+                scheme=self.REDIS_SCHEME,
                 host=host,
                 port=port,
                 db=self.CELERY_REDIS_RESULT_DB,
@@ -146,7 +147,8 @@ class CeleryMixin(object):
                     Check redis package, and REDIS_HOST, REDIS_PORT settings")
 
         if broker_type == 'redis' and redis_available:
-            return 'redis://{host}:{port}/{db}'.format(
+            return '{scheme}://{host}:{port}/{db}'.format(
+                    scheme=self.REDIS_SCHEME,
                     host=self.REDIS_HOST,
                     port=self.REDIS_PORT,
                     db=self.CELERY_REDIS_BROKER_DB)

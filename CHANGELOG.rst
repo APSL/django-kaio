@@ -2,6 +2,11 @@
 Change log
 ==========
 
+v1.6.1 (2025-08-11)
+--------------------
+
+* Support to customize Redis scheme with ``REDIS_SCHEME`` default to ``redis``, this allows to use ``rediss`` (with double S) for TLS connections.
+
 v1.6.0 (2025-03-19)
 --------------------
 
