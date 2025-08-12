@@ -33,7 +33,7 @@ class CachesMixin(object):
 
     @property
     def CACHE_REDIS_USER(self):
-        return get('CACHE_REDIS_USER', 'redis')
+        return get('CACHE_REDIS_USER', None)
 
     @property
     def CACHE_REDIS_PASSWORD(self):
