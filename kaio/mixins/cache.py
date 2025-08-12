@@ -32,6 +32,10 @@ class CachesMixin(object):
         return get('CACHE_REDIS_DB', 2)
 
     @property
+    def CACHE_REDIS_USER(self):
+        return get('CACHE_REDIS_USER', 'redis')
+
+    @property
     def CACHE_REDIS_PASSWORD(self):
         return get('CACHE_REDIS_PASSWORD', None)
 
@@ -52,8 +56,9 @@ class CachesMixin(object):
         if self.CACHE_TYPE == 'redis':
             CACHE = {
                 'BACKEND': 'django_redis.cache.RedisCache',
-                'LOCATION':  '%s://%s:%s/%s' % (
+                'LOCATION':  '%s://%s%s:%s/%s' % (
                     self.REDIS_SCHEME,
+                    self.CACHE_REDIS_USER + '@' if self.CACHE_REDIS_USER else '',
                     self.REDIS_HOST,
                     self.REDIS_PORT,
                     self.CACHE_REDIS_DB
@@ -105,6 +110,10 @@ class CachesMixin(object):
         return get('SESSION_CACHE_REDIS_DB', 3)
 
     @property
+    def SESSION_CACHE_REDIS_USER(self):
+        return get('SESSION_CACHE_REDIS_USER', self.CACHE_REDIS_USER)
+
+    @property
     def SESSION_CACHE_REDIS_PASSWORD(self):
         return get('SESSION_CACHE_REDIS_PASSWORD', self.CACHE_REDIS_PASSWORD)
 
@@ -130,10 +139,12 @@ class CachesMixin(object):
 
         CACHE = {
             'BACKEND': 'django_redis.cache.RedisCache',
-            'LOCATION':  '%s://%s:%s/%s' % (self.SESSION_REDIS_SCHEME,
-                                               self.SESSION_REDIS_HOST,
-                                               self.SESSION_REDIS_PORT,
-                                               self.SESSION_CACHE_REDIS_DB),
+            'LOCATION':  '%s://%s%s:%s/%s' % (
+                self.SESSION_REDIS_SCHEME,
+                self.SESSION_CACHE_REDIS_USER + '@' if self.CACHE_REDIS_USER else '',
+                self.SESSION_REDIS_HOST,
+                self.SESSION_REDIS_PORT,
+                self.SESSION_CACHE_REDIS_DB),
             'KEY_PREFIX': self.SESSION_CACHE_PREFIX,
             'TIMEOUT': self.SESSION_CACHE_TIMEOUT,
             'OPTIONS': {
