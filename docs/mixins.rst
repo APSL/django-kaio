@@ -27,7 +27,7 @@ production. If a cache type is not defined, it means that we have ``dummy`` cach
     redis database number that we'll use as cache into redis. By default, ``2``.
 
 **CACHE_REDIS_USER**
-    Password for redis. By default without password.
+    User for redis. By default without user.
 
 **CACHE_REDIS_PASSWORD**
     Password for redis. By default without password.
@@ -61,7 +61,7 @@ By default use almost same settings as default cache.
     redis database number that we'll use as cache into redis. By default, ``3``.
 
 **SESSION_CACHE_REDIS_USER**
-    Password for redis. By default without password.
+    User for redis. By default without user.
 
 **SESSION_CACHE_REDIS_PASSWORD**
     Password for redis. By default without password.
