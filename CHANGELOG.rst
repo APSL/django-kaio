@@ -2,11 +2,13 @@
 Change log
 ==========
 
-v1.6.1 (2025-08-11)
---------------------
+v1.7.0 (2025-08-13)
+-------------------
 
 * Support to customize Redis scheme with ``REDIS_SCHEME`` default to ``redis``, this allows to use ``rediss`` (with double S) for TLS connections.
-* Addes supprot for ``CACHE_REDIS_USER`` to authenticate to redis.
+* Support for ``CACHE_REDIS_USER`` to authenticate to redis.
+* Update some /docs dependencies with security fixes.
+* Update Github Action versions.
 
 v1.6.0 (2025-03-19)
 --------------------
